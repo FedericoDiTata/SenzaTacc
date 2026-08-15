@@ -196,7 +196,8 @@ Todo esto son placeholders. Están marcados en el código.
 | ¿Envío o sólo retiro? | `lib/siteConfig.ts` | Hoy asume sólo retiro |
 | Historia del local | `app/(sitio)/local/page.tsx` | Texto escrito de oficio |
 | **Fotos del local en alta** | `public/local/` | Las actuales son de WhatsApp, 960 px. Ver § El problema de las fotos |
-| Carta en PDF | `lib/carta.ts` | El cliente la va a pasar; la vista se va a rediseñar a partir de eso |
+| **Carta real** | `lib/carta.ts` | El cliente va a pasar un PDF. El **diseño** de `/carta` ya está hecho; falta el contenido |
+| Fotos de los platos | — | La carta está pensada para funcionar sin fotos por ítem, porque no las tenemos. Si llegan, entran en el destacado de cada sección |
 
 Las fotos de producto son packshots de proveedor. Para la demo va perfecto; para
 producción conviene mencionarlo.
@@ -241,6 +242,21 @@ Otros criterios:
 - **Todas las fotos van a color**, las del local y las de producto.
 - El hero mide `86svh` a propósito: que la sección siguiente asome es lo que
   avisa que hay más para ver. No lleva puntos de navegación ni contador.
+
+### La carta
+
+`/carta` no es una lista de precios: son **capítulos**. Cada sección de
+`lib/carta.ts` tiene número, título grande, un `destacado` en tarjeta llena y el
+resto en dos columnas. Una sección va en `oscuro: true` para cortar el ritmo.
+
+El fondo lleva una trama de dibujos de línea (`components/carta/FondoDoodles.tsx`)
+con espiga, medialuna, galletita y grano de café. La idea la trajo una carta de
+otra cafetería que pasó el cliente como referencia, pero el vocabulario y la
+paleta son los de Senza Tacc — copiar el celeste y las tipografías de marcador
+de esa referencia hubiera peleado con el sello del que sale toda la identidad.
+
+Está pensada para **funcionar sin fotos por ítem**, porque no las tenemos. Si el
+cliente las manda, el lugar natural es el destacado de cada sección.
 
 ### El problema de las fotos del local
 
