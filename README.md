@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Senza Tacc
 
-## Getting Started
+Sitio institucional y market con pedido por WhatsApp para **Senza Tacc**,
+cafetería y market 100% libre de gluten en Almagro, CABA.
 
-First, run the development server:
+> **Estado: demo para cerrar la venta.** No es la versión final. Los precios, la
+> carta de cafetería y los datos de contacto son provisorios — ver
+> [AGENTS.md § Datos pendientes](AGENTS.md).
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Qué resuelve
+
+El local no tenía web ni ningún registro de stock, ni siquiera un Excel. El
+proyecto ataca las dos cosas:
+
+- **Para el cliente** — un lugar donde ver qué venden, armar un pedido del market
+  y terminarlo por WhatsApp con el mensaje ya escrito.
+- **Para el dueño** — un panel donde resuelve los pedidos con un toque y ve su
+  inventario siempre al día, incluidas las ventas del mostrador.
+
+## Las dos ideas que sostienen todo
+
+**Reserva blanda.** Un pedido por WhatsApp no es una venta hasta que el dueño lo
+confirma, así que un pedido *reserva* unidades en vez de descontarlas:
+
+```
+disponible = stock - reservado     ← lo único que ve el cliente
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Confirmar baja el stock real, cancelar libera la reserva, y a las 24 h sin
+resolver se libera sola.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+**Ledger de movimientos.** Cada cambio de stock se guarda con su `origen`
+(`pedido_web`, `mostrador`, `ajuste`, `reposicion`, `pos_externo`) y una clave
+única de referencia externa. Eso da auditoría, permite revertir sin perder
+rastro, y hace que conectar el sistema de punto de venta del mostrador más
+adelante sea agregar un webhook en lugar de rehacer el sistema.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Stack
 
-## Learn More
+Next.js 16 · React 19 · Tailwind v4 · Framer Motion · Zustand · Supabase
 
-To learn more about Next.js, take a look at the following resources:
+## Cómo levantarlo
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm install
+cp .env.example .env.local     # completar con las credenciales de Supabase
+npm run dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Sin credenciales de Supabase la app arranca igual con datos en memoria, pero
+cada instancia ve su propio estado. Para la demo en vivo hace falta Supabase:
+los pasos están en [AGENTS.md](AGENTS.md).
 
-## Deploy on Vercel
+## Rutas
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| Ruta | Qué es |
+|---|---|
+| `/` | Home institucional |
+| `/market` | Catálogo con filtros, buscador y carrito |
+| `/carta` | Carta de la cafetería (sólo lectura) |
+| `/local` | El local, galería y ubicación |
+| `/pedido` | Confirmación y salida a WhatsApp |
+| `/panel` | Pedidos entrantes · Stock · Mostrador (requiere login) |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+**Leé [AGENTS.md](AGENTS.md) antes de tocar código.** Tiene la arquitectura, los
+breaking changes de Next 16 que ya nos mordieron y qué datos siguen pendientes
+del cliente.
