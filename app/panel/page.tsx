@@ -10,7 +10,7 @@ export const dynamic = "force-dynamic";
 const ETIQUETA: Record<Pedido["estado"], { texto: string; clase: string }> = {
   pendiente: { texto: "Pendiente", clase: "bg-ambar/15 text-ambar" },
   confirmado: { texto: "Confirmado", clase: "bg-verde/15 text-verde" },
-  modificado: { texto: "Modificado", clase: "bg-madera/15 text-madera" },
+  modificado: { texto: "Modificado", clase: "bg-ladrillo/15 text-ladrillo" },
   cancelado: { texto: "Cancelado", clase: "bg-rojo/10 text-rojo" },
   expirado: { texto: "Expirado", clase: "bg-tinta/10 text-tinta-tenue" },
 };

@@ -24,7 +24,10 @@ const PILARES = [
 
 export function Propuesta() {
   return (
-    <section className="border-b border-borde bg-crema px-5 py-24 sm:px-8 md:py-32">
+    <section
+      id="propuesta"
+      className="border-b border-borde bg-crema px-5 py-24 sm:px-8 md:py-32"
+    >
       <div className="mx-auto max-w-6xl">
         <Encabezado
           etiqueta="Por qué existimos"
@@ -53,7 +56,7 @@ export function Propuesta() {
               }}
               className="flex flex-col bg-crema p-8 md:p-10"
             >
-              <EspigaTachada className="h-9 w-9 text-madera" />
+              <EspigaTachada className="h-9 w-9 text-ladrillo" />
               <h3 className="mt-6 font-display text-xl leading-snug">
                 {p.titulo}
               </h3>

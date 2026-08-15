@@ -93,7 +93,7 @@ export function TarjetaProducto({
             onClick={onAgregar}
             disabled={estado === "agotado" || sinMargen}
             aria-label={`Agregar ${producto.nombre} al pedido`}
-            className="rounded-full bg-tinta px-4 py-2 text-xs tracking-wide text-crema transition-colors hover:bg-madera disabled:cursor-not-allowed disabled:bg-borde disabled:text-tinta-tenue"
+            className="rounded-full bg-tinta px-4 py-2 text-xs tracking-wide text-crema transition-colors hover:bg-ladrillo disabled:cursor-not-allowed disabled:bg-borde disabled:text-tinta-tenue"
           >
             {estado === "agotado"
               ? "Agotado"
@@ -106,7 +106,7 @@ export function TarjetaProducto({
         </div>
 
         {enCarrito > 0 && (
-          <p className="mt-2 text-[11px] text-madera">
+          <p className="mt-2 text-[11px] text-ladrillo">
             {enCarrito} en tu pedido
           </p>
         )}

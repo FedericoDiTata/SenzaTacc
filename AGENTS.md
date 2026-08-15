@@ -194,24 +194,41 @@ producción conviene mencionarlo.
 
 ## Marca
 
-No hay manual: la paleta está **derivada de las fotos del local**
-(`public/local/`). Tokens en `app/globals.css`.
+No hay manual, pero sí logo: `public/logo-senza-tacc.png`, el sello circular del
+local. **La paleta sale de ahí**, muestreada por histograma de píxeles. Tokens en
+`app/globals.css`.
 
 | Token | Valor | De dónde sale |
 |---|---|---|
-| `crema` | `#F5F1E8` | Las paredes del salón |
-| `crema-profundo` | `#EBE4D5` | Fondo de secciones alternas |
-| `tinta` | `#1A1A1A` | Los marcos negros y el wordmark |
-| `madera` | `#8B5E3C` | El listonado — **acento, con moderación** |
-| `verde` / `ambar` / `rojo` | | Estados de stock, sobre todo en el panel |
+| `ladrillo` | `#A92416` | El campo del sello. Es EL acento de la marca (~55% del logo) |
+| `crema-logo` | `#FCDDB2` | El anillo y la tipografía del sello |
+| `verde` | `#2F4F2F` | El anillo exterior. También el "todo bien" del panel |
+| `dorado` | `#EBA12E` | Las espigas. Para rellenos y badges |
+| `crema` | `#FAF6ED` | Fondo de página — el crema del logo aclarado y desaturado |
+| `crema-profundo` | `#F2E8D6` | Secciones alternas |
+| `tinta` | `#1F1B18` | Texto. Negro apenas cálido para que no choque con el ladrillo |
+| `ambar` | `#8A5D0C` | El dorado oscurecido, para texto que necesita contraste |
+
+Dos decisiones que conviene no revertir sin pensarlo:
+
+- **Los cremas de fondo son versiones aclaradas del crema del logo.** A
+  saturación plena (`#FCDDB2`) una página larga se vuelve ilegible.
+- **`rojo` y `ladrillo` son el mismo color.** La marca ya es roja; meter un
+  segundo rojo sólo para errores ensuciaría la paleta. En contexto (un botón
+  "Cancelar", un contador de faltantes) se lee bien igual.
+
+Otros criterios:
 
 - **Display:** Playfair Display — lo más cercano al cartel del local.
 - **Texto:** DM Sans.
-- **La taza de línea del póster es el motivo de la marca**
-  (`components/marca/Taza.tsx`). Se repite a propósito: logo, carrito vacío,
-  separadores, estados vacíos.
-- Fotos del local en **blanco y negro** (clase `.foto-bn`), como los cuadros que
-  ya tienen colgados. Productos a color sobre blanco.
+- **El sello va en navbar y footer** (`components/marca/Logo.tsx`). En el navbar
+  va acompañado del wordmark porque a 36 px el texto de adentro no se lee.
+- **La taza de línea del póster** (`components/marca/Taza.tsx`) sigue siendo el
+  motivo secundario: hero, carrito vacío, estados vacíos. Funciona chica y sobre
+  foto, donde el sello a color no funcionaría.
+- **Todas las fotos van a color**, las del local y las de producto.
+- El hero mide `86svh` a propósito: que la sección siguiente asome es lo que
+  avisa que hay más para ver.
 
 Aplican además los estándares de
 `C:\Users\feded\.claude\projects\C--Users-feded\memory\feedback_design_principles.md`.

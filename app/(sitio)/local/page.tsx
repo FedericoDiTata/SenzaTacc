@@ -23,7 +23,7 @@ const GALERIA = [
   },
   {
     src: "/local/salon-mesas.jpg",
-    alt: "Las mesas contra el listonado de madera",
+    alt: "Las mesas contra el listonado de ladrillo",
     clase: "aspect-[3/4]",
   },
   {
@@ -51,7 +51,7 @@ export default function LocalPage() {
       <section className="border-b border-borde bg-crema px-5 py-20 sm:px-8 md:py-28">
         <div className="mx-auto grid max-w-5xl gap-14 md:grid-cols-[1fr_1.3fr] md:gap-20">
           <div>
-            <EspigaTachada className="h-9 w-9 text-madera" />
+            <EspigaTachada className="h-9 w-9 text-ladrillo" />
             <h2 className="mt-6 font-display text-2xl leading-snug">
               Dos cosas en un mismo lugar
             </h2>
@@ -91,7 +91,7 @@ export default function LocalPage() {
                   alt={foto.alt}
                   fill
                   sizes="(max-width: 640px) 50vw, 25vw"
-                  className="foto-bn object-cover transition-transform duration-1000 group-hover:scale-105"
+                  className="object-cover transition-transform duration-1000 group-hover:scale-105"
                 />
               </figure>
             ))}

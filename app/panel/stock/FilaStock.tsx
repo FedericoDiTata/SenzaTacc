@@ -102,7 +102,7 @@ export function FilaStock({ producto }: { producto: Producto }) {
               type="button"
               onClick={guardar}
               disabled={pendiente}
-              className="rounded-full bg-tinta px-3 py-1.5 text-[11px] text-crema transition-colors hover:bg-madera"
+              className="rounded-full bg-tinta px-3 py-1.5 text-[11px] text-crema transition-colors hover:bg-ladrillo"
             >
               Guardar
             </button>

@@ -131,7 +131,7 @@ export function CarritoDrawer() {
                               onClick={() =>
                                 setCantidad(l.productoId, l.cantidad - 1)
                               }
-                              className="px-2.5 py-1 text-sm transition-colors hover:text-madera"
+                              className="px-2.5 py-1 text-sm transition-colors hover:text-ladrillo"
                             >
                               −
                             </button>
@@ -145,7 +145,7 @@ export function CarritoDrawer() {
                               onClick={() =>
                                 setCantidad(l.productoId, l.cantidad + 1)
                               }
-                              className="px-2.5 py-1 text-sm transition-colors hover:text-madera disabled:opacity-30"
+                              className="px-2.5 py-1 text-sm transition-colors hover:text-ladrillo disabled:opacity-30"
                             >
                               +
                             </button>
@@ -193,7 +193,7 @@ export function CarritoDrawer() {
                   <Link
                     href="/pedido"
                     onClick={cerrar}
-                    className="mt-4 block w-full rounded-full bg-tinta py-3.5 text-center text-sm tracking-wide text-crema transition-colors hover:bg-madera"
+                    className="mt-4 block w-full rounded-full bg-tinta py-3.5 text-center text-sm tracking-wide text-crema transition-colors hover:bg-ladrillo"
                   >
                     Confirmar pedido
                   </Link>

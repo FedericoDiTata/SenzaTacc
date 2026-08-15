@@ -27,7 +27,7 @@ export function FormularioLogin() {
         <button
           type="button"
           onClick={() => router.push(volver)}
-          className="mt-4 w-full rounded-full bg-tinta py-3 text-sm tracking-wide text-crema transition-colors hover:bg-madera"
+          className="mt-4 w-full rounded-full bg-tinta py-3 text-sm tracking-wide text-crema transition-colors hover:bg-ladrillo"
         >
           Entrar al panel
         </button>
@@ -101,7 +101,7 @@ export function FormularioLogin() {
       <button
         type="submit"
         disabled={cargando}
-        className="w-full rounded-full bg-tinta py-3.5 text-sm tracking-wide text-crema transition-colors hover:bg-madera disabled:opacity-50"
+        className="w-full rounded-full bg-tinta py-3.5 text-sm tracking-wide text-crema transition-colors hover:bg-ladrillo disabled:opacity-50"
       >
         {cargando ? "Entrando…" : "Entrar"}
       </button>

@@ -52,10 +52,10 @@ export function ElLocal() {
           >
             <Image
               src="/local/salon-mesas.jpg"
-              alt="Las mesas del salón con el listonado de madera"
+              alt="Las mesas del salón con el listonado de ladrillo"
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
-              className="foto-bn object-cover transition-transform duration-1000 hover:scale-105"
+              className="object-cover transition-transform duration-1000 hover:scale-105"
             />
           </motion.div>
 
@@ -76,7 +76,7 @@ export function ElLocal() {
               alt="La pared de cuadros con el póster de Senza Tacc"
               fill
               sizes="25vw"
-              className="foto-bn object-cover transition-transform duration-1000 hover:scale-105"
+              className="object-cover transition-transform duration-1000 hover:scale-105"
             />
           </motion.div>
 
@@ -97,7 +97,7 @@ export function ElLocal() {
               alt="Las góndolas del market"
               fill
               sizes="25vw"
-              className="foto-bn object-cover transition-transform duration-1000 hover:scale-105"
+              className="object-cover transition-transform duration-1000 hover:scale-105"
             />
           </motion.div>
         </div>

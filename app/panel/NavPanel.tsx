@@ -19,7 +19,7 @@ export function NavPanel({ email }: { email: string | null }) {
       <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3 sm:px-6">
         <div className="flex items-center gap-3">
           <Link href="/" aria-label="Ir al sitio">
-            <Logo compacto className="text-sm" />
+            <Logo compacto />
           </Link>
           <span className="hidden text-[11px] text-tinta-tenue sm:inline">
             Panel del local
@@ -59,7 +59,7 @@ export function NavPanel({ email }: { email: string | null }) {
             >
               {tab.label}
               {activo && (
-                <span className="absolute inset-x-2 bottom-0 h-0.5 bg-madera" />
+                <span className="absolute inset-x-2 bottom-0 h-0.5 bg-ladrillo" />
               )}
             </Link>
           );

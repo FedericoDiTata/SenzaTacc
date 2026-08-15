@@ -36,7 +36,7 @@ export function Ubicacion() {
               href={linkWhatsApp()}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-full bg-tinta px-7 py-3.5 text-center text-sm tracking-wide text-crema transition-colors hover:bg-madera"
+              className="rounded-full bg-tinta px-7 py-3.5 text-center text-sm tracking-wide text-crema transition-colors hover:bg-ladrillo"
             >
               Escribinos por WhatsApp
             </a>

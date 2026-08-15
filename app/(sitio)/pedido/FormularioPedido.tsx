@@ -67,13 +67,13 @@ export function FormularioPedido() {
         animate={{ opacity: 1, y: 0 }}
         className="mx-auto max-w-lg px-5 pb-24 pt-36 text-center sm:px-8"
       >
-        <Taza className="mx-auto w-14 text-madera" />
+        <Taza className="mx-auto w-14 text-ladrillo" />
         <h2 className="mt-8 font-display text-3xl">Tu pedido quedó guardado</h2>
 
         <p className="mt-6 text-sm leading-relaxed text-tinta-suave">
           Anotá este código, es el que vamos a usar para encontrar tu pedido:
         </p>
-        <p className="wordmark mt-3 text-4xl text-madera">{listo.codigo}</p>
+        <p className="wordmark mt-3 text-4xl text-ladrillo">{listo.codigo}</p>
 
         <p className="mt-8 text-sm leading-relaxed text-tinta-suave">
           Se te abrió WhatsApp con el mensaje ya escrito. Si no pasó nada,
@@ -84,7 +84,7 @@ export function FormularioPedido() {
           href={listo.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-5 inline-block w-full rounded-full bg-tinta px-8 py-4 text-sm tracking-wide text-crema transition-colors hover:bg-madera sm:w-auto"
+          className="mt-5 inline-block w-full rounded-full bg-tinta px-8 py-4 text-sm tracking-wide text-crema transition-colors hover:bg-ladrillo sm:w-auto"
         >
           Abrir WhatsApp y enviar
         </a>
@@ -115,7 +115,7 @@ export function FormularioPedido() {
         </p>
         <Link
           href="/market"
-          className="rounded-full bg-tinta px-8 py-3.5 text-sm tracking-wide text-crema transition-colors hover:bg-madera"
+          className="rounded-full bg-tinta px-8 py-3.5 text-sm tracking-wide text-crema transition-colors hover:bg-ladrillo"
         >
           Ir al market
         </Link>
@@ -134,7 +134,7 @@ export function FormularioPedido() {
       <div className="mx-auto max-w-6xl px-5 py-14 sm:px-8 md:py-20">
         <div className="grid gap-12 lg:grid-cols-[1fr_400px] lg:gap-16">
         <form onSubmit={enviar} className="order-2 lg:order-1">
-          <h2 className="eyebrow text-madera">Tus datos</h2>
+          <h2 className="eyebrow text-ladrillo">Tus datos</h2>
 
           <div className="mt-6 space-y-5">
             <Campo
@@ -201,7 +201,7 @@ export function FormularioPedido() {
           <button
             type="submit"
             disabled={pendiente}
-            className="mt-8 w-full rounded-full bg-tinta py-4 text-sm tracking-wide text-crema transition-colors hover:bg-madera disabled:opacity-50"
+            className="mt-8 w-full rounded-full bg-tinta py-4 text-sm tracking-wide text-crema transition-colors hover:bg-ladrillo disabled:opacity-50"
           >
             {pendiente ? "Registrando…" : "Confirmar y abrir WhatsApp"}
           </button>
@@ -240,7 +240,7 @@ export function FormularioPedido() {
                           type="button"
                           aria-label="Quitar uno"
                           onClick={() => setCantidad(l.productoId, l.cantidad - 1)}
-                          className="px-2 py-0.5 transition-colors hover:text-madera"
+                          className="px-2 py-0.5 transition-colors hover:text-ladrillo"
                         >
                           −
                         </button>
@@ -252,7 +252,7 @@ export function FormularioPedido() {
                           aria-label="Agregar uno"
                           disabled={l.cantidad >= l.maximo}
                           onClick={() => setCantidad(l.productoId, l.cantidad + 1)}
-                          className="px-2 py-0.5 transition-colors hover:text-madera disabled:opacity-30"
+                          className="px-2 py-0.5 transition-colors hover:text-ladrillo disabled:opacity-30"
                         >
                           +
                         </button>
@@ -310,7 +310,7 @@ function Campo({
     <div>
       <label htmlFor={id} className="text-xs text-tinta-suave">
         {etiqueta}
-        {obligatorio && <span className="ml-0.5 text-madera">*</span>}
+        {obligatorio && <span className="ml-0.5 text-ladrillo">*</span>}
       </label>
       <input
         id={id}

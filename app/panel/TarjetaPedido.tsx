@@ -84,7 +84,7 @@ export function TarjetaPedido({ pedido }: { pedido: Pedido }) {
                   type="button"
                   aria-label="Quitar uno"
                   onClick={() => setCantidad(item.productoId, item.cantidad - 1)}
-                  className="px-2.5 py-1 transition-colors hover:text-madera"
+                  className="px-2.5 py-1 transition-colors hover:text-ladrillo"
                 >
                   −
                 </button>
@@ -95,7 +95,7 @@ export function TarjetaPedido({ pedido }: { pedido: Pedido }) {
                   type="button"
                   aria-label="Agregar uno"
                   onClick={() => setCantidad(item.productoId, item.cantidad + 1)}
-                  className="px-2.5 py-1 transition-colors hover:text-madera"
+                  className="px-2.5 py-1 transition-colors hover:text-ladrillo"
                 >
                   +
                 </button>
@@ -139,7 +139,7 @@ export function TarjetaPedido({ pedido }: { pedido: Pedido }) {
               type="button"
               disabled={pendiente || !cambiado}
               onClick={() => accionar("modificado")}
-              className="flex-1 rounded-full bg-madera px-4 py-2.5 text-xs tracking-wide text-blanco transition-opacity hover:opacity-90 disabled:opacity-40"
+              className="flex-1 rounded-full bg-ladrillo px-4 py-2.5 text-xs tracking-wide text-blanco transition-opacity hover:opacity-90 disabled:opacity-40"
             >
               {pendiente ? "Guardando…" : "Guardar cambios y confirmar"}
             </button>

@@ -28,7 +28,7 @@ export function Encabezado({
           whileInView={{ y: 0, opacity: 1 }}
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1] }}
-          className={`eyebrow ${claro ? "text-crema/70" : "text-madera"}`}
+          className={`eyebrow ${claro ? "text-crema/70" : "text-ladrillo"}`}
         >
           {etiqueta}
         </motion.p>

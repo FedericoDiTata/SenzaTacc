@@ -81,7 +81,7 @@ export function Navbar() {
           >
             <BolsaIcono className="h-5 w-5" />
             {montado && cantidad > 0 && (
-              <span className="absolute -right-0.5 -top-0.5 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-madera px-1 text-[10px] font-semibold text-blanco">
+              <span className="absolute -right-0.5 -top-0.5 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-ladrillo px-1 text-[10px] font-semibold text-blanco">
                 {cantidad}
               </span>
             )}

@@ -71,7 +71,7 @@ export function GrillaMarket({ productos }: { productos: Producto[] }) {
                   type="checkbox"
                   checked={ocultarAgotados}
                   onChange={(e) => setOcultarAgotados(e.target.checked)}
-                  className="h-3.5 w-3.5 accent-[var(--madera)]"
+                  className="h-3.5 w-3.5 accent-[var(--ladrillo)]"
                 />
                 Sólo con stock
               </label>

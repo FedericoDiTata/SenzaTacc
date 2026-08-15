@@ -74,7 +74,7 @@ export default function CartaPage() {
         </div>
 
         <div className="mt-24 flex flex-col items-center gap-6 border-t border-borde pt-16 text-center">
-          <Taza className="w-12 text-madera" />
+          <Taza className="w-12 text-ladrillo" />
           <h2 className="font-display text-2xl">
             ¿Buscabas para llevar a casa?
           </h2>
@@ -85,7 +85,7 @@ export default function CartaPage() {
           </p>
           <Link
             href="/market"
-            className="rounded-full bg-tinta px-8 py-3.5 text-sm tracking-wide text-crema transition-colors hover:bg-madera"
+            className="rounded-full bg-tinta px-8 py-3.5 text-sm tracking-wide text-crema transition-colors hover:bg-ladrillo"
           >
             Ir al market
           </Link>

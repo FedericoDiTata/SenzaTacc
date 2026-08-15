@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Logo } from "@/components/marca/Logo";
+import { Sello } from "@/components/marca/Logo";
 import { SITE, NAV } from "@/lib/siteConfig";
 import { linkWhatsApp } from "@/lib/whatsapp";
 
@@ -7,8 +7,11 @@ export function Footer() {
   return (
     <footer className="border-t border-borde bg-crema-profundo">
       <div className="mx-auto grid max-w-6xl gap-12 px-5 py-16 sm:px-8 md:grid-cols-3 md:gap-8">
-        <div className="flex justify-center md:justify-start">
-          <Logo className="items-center md:items-start" />
+        <div className="flex flex-col items-center gap-4 md:items-start">
+          <Sello className="h-28 w-28" />
+          <p className="max-w-[15rem] text-center text-sm leading-relaxed text-tinta-suave md:text-left">
+            Cafetería y market 100% libre de gluten.
+          </p>
         </div>
 
         <div className="text-center md:text-left">
