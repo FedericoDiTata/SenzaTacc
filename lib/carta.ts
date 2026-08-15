@@ -16,15 +16,18 @@ export interface ItemCarta {
   precio: number;
 }
 
+/** Color de la banda de cada sección. Son claves fijas, no valores CSS: las
+ *  clases de Tailwind tienen que existir literales para que el JIT las vea. */
+export type ColorSeccion = "ladrillo" | "verde" | "ambar" | "tinta";
+
 export interface SeccionCarta {
   id: string;
   titulo: string;
   bajada: string;
-  /** El item que abre la sección, en tarjeta grande. Uno por sección. */
+  color: ColorSeccion;
+  /** El item que abre la sección, resaltado. Uno por sección. */
   destacado: ItemCarta & { porque: string };
   items: ItemCarta[];
-  /** Invierte la sección a fondo oscuro. Sirve para cortar el ritmo. */
-  oscuro?: boolean;
 }
 
 export const CARTA: SeccionCarta[] = [
@@ -32,6 +35,7 @@ export const CARTA: SeccionCarta[] = [
     id: "cafe",
     titulo: "Café",
     bajada: "De especialidad, tostado por lote chico.",
+    color: "ladrillo",
     destacado: {
       nombre: "Flat white",
       detalle: "Doble ristretto y leche texturada. Sin espuma de más.",
@@ -53,6 +57,7 @@ export const CARTA: SeccionCarta[] = [
     id: "panaderia",
     titulo: "Panadería",
     bajada: "Todo horneado acá, todos los días.",
+    color: "ambar",
     destacado: {
       nombre: "Medialunas",
       detalle: "De manteca, recién salidas del horno. Por unidad o por tres.",
@@ -72,7 +77,7 @@ export const CARTA: SeccionCarta[] = [
     id: "salado",
     titulo: "Para almorzar",
     bajada: "Con pan propio, sin excepciones.",
-    oscuro: true,
+    color: "tinta",
     destacado: {
       nombre: "Tostado de jamón y queso",
       detalle: "En pan de molde propio, prensado. El clásico que no podías pedir en ningún lado.",
@@ -92,6 +97,7 @@ export const CARTA: SeccionCarta[] = [
     id: "dulce",
     titulo: "Pastelería",
     bajada: "La vitrina cambia todos los días.",
+    color: "ladrillo",
     destacado: {
       nombre: "Cheesecake de frutos rojos",
       detalle: "Base de galleta propia y coulis del día.",
@@ -111,6 +117,7 @@ export const CARTA: SeccionCarta[] = [
     id: "otras",
     titulo: "Otras bebidas",
     bajada: "Para los que no toman café.",
+    color: "verde",
     destacado: {
       nombre: "Limonada con menta y jengibre",
       detalle: "Exprimida en el momento. Jarra o vaso.",
@@ -125,19 +132,5 @@ export const CARTA: SeccionCarta[] = [
       { nombre: "Agua saborizada casera", precio: 2900 },
       { nombre: "Gaseosas", precio: 3200 },
     ],
-  },
-];
-
-/** Promos del pie de la carta. */
-export const PROMOS = [
-  {
-    titulo: "Desayuno completo",
-    detalle: "Café con leche + 3 medialunas",
-    precio: 7900,
-  },
-  {
-    titulo: "Merienda para dos",
-    detalle: "2 cafés + porción de torta a elección",
-    precio: 12400,
   },
 ];

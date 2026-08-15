@@ -245,9 +245,24 @@ Otros criterios:
 
 ### La carta
 
-`/carta` no es una lista de precios: son **capítulos**. Cada sección de
-`lib/carta.ts` tiene número, título grande, un `destacado` en tarjeta llena y el
-resto en dos columnas. Una sección va en `oscuro: true` para cortar el ritmo.
+`/carta` tiene que leerse como **una sola hoja**, no como una sucesión de
+secciones de landing. Todo el menú vive sobre un único fondo crema, en **dos
+columnas** en desktop, y lo que separa las secciones es el color de su banda, no
+un cambio de fondo a lo ancho de la pantalla.
+
+Cada sección de `lib/carta.ts` define su `color` (`ladrillo | verde | ambar |
+tinta`) y un `destacado` con su motivo. Las clases van **literales** en el mapa
+`PALETA` de la página: el JIT de Tailwind lee el código fuente y no resuelve
+`bg-${color}`.
+
+Dos cosas que conviene no revertir:
+
+- **El reparto en columnas lo calcula `repartir()`, no CSS.** Con `columns-2` el
+  navegador no puede partir una sección al medio, reparte mal y deja una columna
+  hasta 500 px más corta que la otra.
+- **La nota "Todo, sin excepción" cierra la columna izquierda.** No es relleno:
+  dice lo único que de verdad hay que entender del local, y de paso empareja las
+  columnas.
 
 El fondo lleva una trama de dibujos de línea (`components/carta/FondoDoodles.tsx`)
 con espiga, medialuna, galletita y grano de café. La idea la trajo una carta de
