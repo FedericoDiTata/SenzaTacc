@@ -4,19 +4,47 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Taza } from "@/components/marca/Taza";
 import { SITE } from "@/lib/siteConfig";
 
-// Fotos del local, no de producto: el hero muestra el lugar, el market muestra
-// lo que se vende.
+/*
+ * Fotos del local, no de producto: el hero muestra el lugar, el market muestra
+ * lo que se vende.
+ *
+ * Las seis son verticales de celular (~960×1280) y comprimidas por WhatsApp.
+ * En una franja apaisada eso trae dos problemas:
+ *
+ *  1. Encuadre — el recorte por defecto (centro) cae en la parte menos
+ *     interesante de cada foto. De ahí el `foco` de cada slide, que corre el
+ *     object-position a donde realmente está el sujeto.
+ *  2. Nitidez — 960 px de ancho estirados a 1440+ es un 1,5× de upscale y no
+ *     hay forma de recuperarlo desde el código. Para que se vean nítidas hacen
+ *     falta los originales del celular (WhatsApp recorta a 1280 px y
+ *     recomprime). Ver AGENTS.md § Datos pendientes.
+ */
 const SLIDES = [
-  { src: "/local/salon-gente.jpg", alt: "El salón de Senza Tacc con gente desayunando" },
-  { src: "/local/market-gondolas.jpg", alt: "Las góndolas del market sin TACC" },
-  { src: "/local/medialunas.jpg", alt: "Medialunas recién horneadas en el mostrador" },
-  { src: "/local/market-gente.jpg", alt: "Clientes eligiendo productos en el market" },
+  {
+    src: "/local/salon-gente.jpg",
+    alt: "El salón de Senza Tacc con gente desayunando",
+    foco: "50% 58%",
+  },
+  {
+    src: "/local/market-gondolas.jpg",
+    alt: "Las góndolas del market sin TACC",
+    foco: "50% 42%",
+  },
+  {
+    src: "/local/medialunas.jpg",
+    alt: "Medialunas recién horneadas en el mostrador",
+    foco: "50% 70%",
+  },
+  {
+    src: "/local/market-gente.jpg",
+    alt: "Clientes eligiendo productos en el market",
+    foco: "50% 45%",
+  },
 ];
 
-const DURACION = 3500;
+const DURACION = 4200;
 const EASE_CINE = [0.43, 0.13, 0.23, 0.96] as const;
 
 export function Hero() {
@@ -34,12 +62,14 @@ export function Hero() {
       <AnimatePresence initial={false}>
         <motion.div
           key={i}
-          initial={{ opacity: 0, scale: 1.05 }}
-          animate={{ opacity: 1, scale: 1.12 }}
+          initial={{ opacity: 0, scale: 1 }}
+          animate={{ opacity: 1, scale: 1.05 }}
           exit={{ opacity: 0 }}
           transition={{
-            opacity: { duration: 1.2, ease: "easeInOut" },
-            scale: { duration: DURACION / 1000 + 1.2, ease: "linear" },
+            opacity: { duration: 1.3, ease: "easeInOut" },
+            // Ken Burns contenido: con fotos de 960 px cada punto de zoom se
+            // paga en nitidez.
+            scale: { duration: DURACION / 1000 + 1.3, ease: "linear" },
           }}
           className="absolute inset-0"
         >
@@ -48,8 +78,10 @@ export function Hero() {
             alt={SLIDES[i].alt}
             fill
             priority={i === 0}
+            quality={90}
             sizes="100vw"
             className="object-cover"
+            style={{ objectPosition: SLIDES[i].foco }}
           />
         </motion.div>
       </AnimatePresence>
@@ -60,16 +92,14 @@ export function Hero() {
       <div className="absolute inset-0 bg-tinta/40" />
       <div className="absolute inset-0 bg-gradient-to-b from-tinta/70 via-tinta/45 to-tinta/65" />
 
-      <div className="relative mx-auto max-w-3xl px-6 pb-10 text-center text-crema">
+      <div className="relative mx-auto max-w-3xl px-6 text-center text-crema">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: EASE_CINE, delay: 0.2 }}
           className="flex flex-col items-center"
         >
-          <Taza className="w-12 sm:w-14" />
-
-          <h1 className="wordmark mt-6 text-4xl leading-[1.15] sm:text-6xl">
+          <h1 className="wordmark text-4xl leading-[1.15] sm:text-6xl">
             SENZA TACC
           </h1>
 
@@ -77,13 +107,13 @@ export function Hero() {
             Café de especialidad · Market · {SITE.barrio}
           </p>
 
-          <p className="mt-7 max-w-xl font-display text-xl leading-relaxed sm:text-2xl">
+          <p className="mt-8 max-w-xl font-display text-xl leading-relaxed sm:text-2xl">
             Todo lo que hay acá es sin gluten.
             <br className="hidden sm:block" /> Sin excepciones, sin asteriscos,
             sin preguntar.
           </p>
 
-          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+          <div className="mt-10 flex flex-col gap-3 sm:flex-row">
             <Link
               href="/market"
               className="rounded-full bg-crema px-8 py-3.5 text-sm tracking-wide text-tinta transition-colors hover:bg-blanco"
@@ -98,32 +128,6 @@ export function Hero() {
             </Link>
           </div>
         </motion.div>
-      </div>
-
-      <div className="absolute inset-x-0 bottom-6 flex items-center justify-center px-6 sm:justify-between sm:px-10">
-        <div className="flex items-center gap-2">
-          {SLIDES.map((s, idx) => (
-            <button
-              key={s.src}
-              type="button"
-              onClick={() => setI(idx)}
-              aria-label={`Ver foto ${idx + 1}`}
-              className={`h-1 rounded-full transition-all duration-500 ${
-                idx === i ? "w-8 bg-crema" : "w-1.5 bg-crema/40 hover:bg-crema/70"
-              }`}
-            />
-          ))}
-        </div>
-
-        <a
-          href="#propuesta"
-          className="group hidden items-center gap-3 text-xs tracking-wide text-crema/70 transition-colors hover:text-crema sm:flex"
-        >
-          Seguí bajando
-          <span className="relative block h-9 w-px overflow-hidden bg-crema/25">
-            <span className="hilo-scroll absolute inset-x-0 top-0 block h-3 bg-crema" />
-          </span>
-        </a>
       </div>
     </section>
   );

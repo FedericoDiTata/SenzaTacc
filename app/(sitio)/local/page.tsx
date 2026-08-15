@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { CabeceraPagina } from "@/components/ui/CabeceraPagina";
 import { Ubicacion } from "@/components/home/Ubicacion";
-import { EspigaTachada } from "@/components/marca/Taza";
+import { EspigaTachada } from "@/components/marca/EspigaTachada";
 
 export const metadata: Metadata = {
   title: "El local",

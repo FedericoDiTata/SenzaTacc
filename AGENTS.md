@@ -170,6 +170,15 @@ pasar por la página).
 **Sin Supabase configurado el panel queda abierto**, con un cartel ámbar bien
 visible avisándolo. Es para poder desarrollar sin backend. No deployear así.
 
+**El acceso no se anuncia en la web.** No hay enlace a `/panel` ni a `/login` en
+ningún lado del sitio público: el dueño entra escribiendo la URL, o mejor,
+guardándola en favoritos o en la pantalla de inicio del celular. `app/robots.ts`
+las saca de los buscadores.
+
+Ojo con confundir capas: robots.txt es público y es una petición, no un candado.
+Lo que protege de verdad es el login y la validación de sesión dentro de cada
+Server Action. No anunciar el acceso es comodidad y prolijidad, no seguridad.
+
 ---
 
 ## Datos pendientes del cliente
@@ -186,6 +195,8 @@ Todo esto son placeholders. Están marcados en el código.
 | **Carta de cafetería** | `lib/carta.ts` | **Contenido de muestra entero.** Aclararlo en la reunión |
 | ¿Envío o sólo retiro? | `lib/siteConfig.ts` | Hoy asume sólo retiro |
 | Historia del local | `app/(sitio)/local/page.tsx` | Texto escrito de oficio |
+| **Fotos del local en alta** | `public/local/` | Las actuales son de WhatsApp, 960 px. Ver § El problema de las fotos |
+| Carta en PDF | `lib/carta.ts` | El cliente la va a pasar; la vista se va a rediseñar a partir de eso |
 
 Las fotos de producto son packshots de proveedor. Para la demo va perfecto; para
 producción conviene mencionarlo.
@@ -223,12 +234,30 @@ Otros criterios:
 - **Texto:** DM Sans.
 - **El sello va en navbar y footer** (`components/marca/Logo.tsx`). En el navbar
   va acompañado del wordmark porque a 36 px el texto de adentro no se lee.
-- **La taza de línea del póster** (`components/marca/Taza.tsx`) sigue siendo el
-  motivo secundario: hero, carrito vacío, estados vacíos. Funciona chica y sobre
-  foto, donde el sello a color no funcionaría.
+- **No hay más motivo de la taza.** Existió un ícono de taza de línea sacado del
+  póster del local; se eliminó por pedido del cliente. Los estados vacíos usan
+  íconos neutros (`components/ui/Iconos.tsx`) y el sello aparece sólo donde hay
+  un momento de marca real.
 - **Todas las fotos van a color**, las del local y las de producto.
 - El hero mide `86svh` a propósito: que la sección siguiente asome es lo que
-  avisa que hay más para ver.
+  avisa que hay más para ver. No lleva puntos de navegación ni contador.
+
+### El problema de las fotos del local
+
+Las seis fotos de `public/local/` son **verticales de celular (~960×1280) y
+comprimidas por WhatsApp**. Eso trae dos problemas distintos:
+
+- **Encuadre** — en una franja apaisada el recorte por defecto cae en la parte
+  menos interesante. Por eso cada slide del hero tiene su `foco`
+  (`object-position`), y la foto de la carta usa `50% 72%`: centrada mostraba la
+  máquina de café en vez de las medialunas.
+- **Nitidez** — 960 px estirados a 1440+ son 1,5× de upscale, y eso **no se
+  arregla desde el código**. Está puesto `quality={90}` y el Ken Burns se
+  contuvo a 1,05×, pero el techo lo pone la fuente. Sólo se ven nítidas donde se
+  achican (galería de `/local`, sección "El lugar").
+
+**La solución real es pedirle al cliente los originales del celular**, enviados
+por Drive o AirDrop y no por WhatsApp, que recorta a 1280 px y recomprime.
 
 Aplican además los estándares de
 `C:\Users\feded\.claude\projects\C--Users-feded\memory\feedback_design_principles.md`.

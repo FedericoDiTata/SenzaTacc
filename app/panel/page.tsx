@@ -1,7 +1,7 @@
 import { datos } from "@/lib/data";
 import { formatARS, type Pedido } from "@/lib/types";
 import { fechaHora } from "@/lib/tiempo";
-import { Taza } from "@/components/marca/Taza";
+import { Bandeja } from "@/components/ui/Iconos";
 import { TarjetaPedido } from "./TarjetaPedido";
 import { AutoRefresco } from "./AutoRefresco";
 
@@ -52,7 +52,7 @@ export default async function PedidosPage() {
 
       {pendientes.length === 0 ? (
         <div className="mt-12 flex flex-col items-center gap-4 rounded-sm border border-dashed border-borde py-20 text-center">
-          <Taza className="w-12 text-borde" />
+          <Bandeja className="h-10 w-10 text-borde" />
           <p className="text-sm text-tinta-suave">
             No hay pedidos esperando respuesta.
           </p>

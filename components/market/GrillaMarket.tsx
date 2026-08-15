@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { TarjetaProducto } from "./TarjetaProducto";
-import { Taza } from "@/components/marca/Taza";
+import { Lupa } from "@/components/ui/Iconos";
 import { CATEGORIAS, disponible, type CategoriaId, type Producto } from "@/lib/types";
 
 type Filtro = CategoriaId | "todos";
@@ -105,7 +105,7 @@ export function GrillaMarket({ productos }: { productos: Producto[] }) {
       <div className="mx-auto max-w-6xl px-5 py-12 sm:px-8 md:py-16">
         {visibles.length === 0 ? (
           <div className="flex flex-col items-center gap-5 py-24 text-center">
-            <Taza className="w-14 text-borde" />
+            <Lupa className="h-10 w-10 text-borde" />
             <p className="text-sm text-tinta-suave">
               No encontramos nada con ese filtro.
             </p>

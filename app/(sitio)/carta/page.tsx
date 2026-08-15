@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { CabeceraPagina } from "@/components/ui/CabeceraPagina";
-import { Taza } from "@/components/marca/Taza";
+import { Sello } from "@/components/marca/Logo";
 import { CARTA } from "@/lib/carta";
 import { formatARS } from "@/lib/types";
 import { SITE } from "@/lib/siteConfig";
@@ -22,16 +22,20 @@ export default function CartaPage() {
         bajada="Todo lo que sale de esta cocina es sin gluten, incluido el pan. No hay versión apta: hay una sola versión."
       />
 
-      <section className="relative h-[38vh] min-h-[260px] overflow-hidden bg-tinta">
+      {/* La foto es vertical (960×1280, de celular). En una franja apaisada el
+          encuadre por defecto cae sobre la máquina de café y las medialunas
+          quedan fuera: por eso el object-position corrido hacia abajo. */}
+      <section className="relative h-[42vh] min-h-[280px] overflow-hidden bg-tinta">
         <Image
           src="/local/medialunas.jpg"
           alt="Medialunas recién horneadas sobre el mostrador"
           fill
           priority
+          quality={90}
           sizes="100vw"
-          className="object-cover opacity-90"
+          className="object-cover"
+          style={{ objectPosition: "50% 72%" }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-tinta/70 to-transparent" />
       </section>
 
       <div className="mx-auto max-w-4xl px-5 py-20 sm:px-8 md:py-28">
@@ -74,7 +78,7 @@ export default function CartaPage() {
         </div>
 
         <div className="mt-24 flex flex-col items-center gap-6 border-t border-borde pt-16 text-center">
-          <Taza className="w-12 text-ladrillo" />
+          <Sello className="h-16 w-16" />
           <h2 className="font-display text-2xl">
             ¿Buscabas para llevar a casa?
           </h2>

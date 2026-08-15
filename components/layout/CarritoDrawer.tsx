@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Taza } from "@/components/marca/Taza";
+import { Bolsa } from "@/components/ui/Iconos";
 import { contarCarrito, totalCarrito, useCarrito } from "@/lib/cartStore";
 import { formatARS } from "@/lib/types";
 
@@ -89,7 +89,7 @@ export function CarritoDrawer() {
 
             {lineas.length === 0 ? (
               <div className="flex flex-1 flex-col items-center justify-center gap-5 px-8 text-center">
-                <Taza className="w-16 text-borde" />
+                <Bolsa className="h-12 w-12 text-borde" />
                 <p className="text-sm text-tinta-suave">
                   Todavía no agregaste nada.
                 </p>

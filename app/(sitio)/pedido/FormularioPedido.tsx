@@ -4,7 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState, useTransition } from "react";
 import { motion } from "framer-motion";
-import { Taza } from "@/components/marca/Taza";
+import { Sello } from "@/components/marca/Logo";
+import { Bolsa } from "@/components/ui/Iconos";
 import { CabeceraPagina } from "@/components/ui/CabeceraPagina";
 import { totalCarrito, useCarrito } from "@/lib/cartStore";
 import { formatARS } from "@/lib/types";
@@ -67,7 +68,7 @@ export function FormularioPedido() {
         animate={{ opacity: 1, y: 0 }}
         className="mx-auto max-w-lg px-5 pb-24 pt-36 text-center sm:px-8"
       >
-        <Taza className="mx-auto w-14 text-ladrillo" />
+        <Sello className="mx-auto h-20 w-20" />
         <h2 className="mt-8 font-display text-3xl">Tu pedido quedó guardado</h2>
 
         <p className="mt-6 text-sm leading-relaxed text-tinta-suave">
@@ -108,7 +109,7 @@ export function FormularioPedido() {
   if (lineas.length === 0) {
     return (
       <div className="mx-auto flex max-w-lg flex-col items-center gap-6 px-5 pb-24 pt-36 text-center sm:px-8">
-        <Taza className="w-14 text-borde" />
+        <Bolsa className="h-12 w-12 text-borde" />
         <h2 className="font-display text-2xl">Tu pedido está vacío</h2>
         <p className="text-sm text-tinta-suave">
           Elegí lo que quieras del market y volvé por acá.

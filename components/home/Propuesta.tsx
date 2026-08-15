@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Encabezado } from "@/components/ui/Encabezado";
-import { EspigaTachada } from "@/components/marca/Taza";
+import { EspigaTachada } from "@/components/marca/EspigaTachada";
 
 const PILARES = [
   {

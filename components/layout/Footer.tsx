@@ -82,13 +82,13 @@ export function Footer() {
       </div>
 
       <div className="border-t border-borde/70">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-5 py-6 text-[11px] text-tinta-tenue sm:flex-row sm:px-8">
+        {/* Sin enlace al panel: el acceso del local no se anuncia en la web.
+            El dueño entra por /panel directo (guardado en favoritos o en la
+            pantalla de inicio del celular). Ver AGENTS.md § Autenticación. */}
+        <div className="mx-auto flex max-w-6xl items-center justify-center px-5 py-6 text-[11px] text-tinta-tenue sm:px-8">
           <p>
             © {new Date().getFullYear()} {SITE.nombre}. {SITE.claim}.
           </p>
-          <Link href="/panel" className="transition-opacity hover:opacity-60">
-            Acceso del local
-          </Link>
         </div>
       </div>
     </footer>

@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Logo } from "@/components/marca/Logo";
+import { Bolsa } from "@/components/ui/Iconos";
 import { contarCarrito, useCarrito } from "@/lib/cartStore";
 import { NAV } from "@/lib/siteConfig";
 
@@ -79,7 +80,7 @@ export function Navbar() {
             aria-label={`Abrir carrito${cantidad > 0 ? ` (${cantidad})` : ""}`}
             className="relative rounded-full p-2.5 transition-colors hover:bg-current/10"
           >
-            <BolsaIcono className="h-5 w-5" />
+            <Bolsa className="h-5 w-5" />
             {montado && cantidad > 0 && (
               <span className="absolute -right-0.5 -top-0.5 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-ladrillo px-1 text-[10px] font-semibold text-blanco">
                 {cantidad}
@@ -140,23 +141,5 @@ export function Navbar() {
         )}
       </AnimatePresence>
     </header>
-  );
-}
-
-function BolsaIcono({ className = "" }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={1.6}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      className={className}
-    >
-      <path d="M6 8h12l-1 12H7L6 8z" />
-      <path d="M9 8V6a3 3 0 0 1 6 0v2" />
-    </svg>
   );
 }
