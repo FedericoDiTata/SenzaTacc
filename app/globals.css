@@ -1,0 +1,117 @@
+@import "tailwindcss";
+
+/*
+  Tokens de marca Senza Tacc.
+  No hay manual de marca: la paleta está derivada de las fotos del local
+  (public/local/). Ver AGENTS.md § Marca antes de tocar estos valores.
+*/
+:root {
+  /* Superficies — las paredes y mesas del salón */
+  --crema: #f5f1e8;
+  --crema-profundo: #ebe4d5;
+  --blanco: #ffffff;
+
+  /* Tinta — los marcos negros y el wordmark del cartel */
+  --tinta: #1a1a1a;
+  --tinta-suave: #57534e;
+  --tinta-tenue: #8a8378;
+
+  /* Madera — el listonado de las paredes. Acento, con moderación. */
+  --madera: #8b5e3c;
+  --madera-claro: #b08055;
+
+  /* Estados de stock (sobre todo en el panel) */
+  --verde: #5a7d5a;
+  --ambar: #b8860b;
+  --rojo: #a63d2f;
+
+  --borde: #e0d9ca;
+}
+
+@theme inline {
+  --color-crema: var(--crema);
+  --color-crema-profundo: var(--crema-profundo);
+  --color-blanco: var(--blanco);
+  --color-tinta: var(--tinta);
+  --color-tinta-suave: var(--tinta-suave);
+  --color-tinta-tenue: var(--tinta-tenue);
+  --color-madera: var(--madera);
+  --color-madera-claro: var(--madera-claro);
+  --color-verde: var(--verde);
+  --color-ambar: var(--ambar);
+  --color-rojo: var(--rojo);
+  --color-borde: var(--borde);
+
+  --font-display: var(--font-playfair);
+  --font-sans: var(--font-dm-sans);
+}
+
+body {
+  background: var(--crema);
+  color: var(--tinta);
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* El wordmark del local es serif de alto contraste y muy espaciado. */
+.wordmark {
+  font-family: var(--font-playfair), Georgia, serif;
+  letter-spacing: 0.18em;
+  font-weight: 500;
+}
+
+/* Etiqueta de sección: xs, mayúsculas, tracking amplio (ver feedback_design_principles) */
+.eyebrow {
+  font-size: 0.6875rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* Las fotos del local van en blanco y negro, como los cuadros que ya tienen colgados. */
+.foto-bn {
+  filter: grayscale(100%) contrast(1.05);
+}
+
+@keyframes marquee-izq {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marquee-der {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.animate-marquee-izq {
+  animation: marquee-izq linear infinite;
+}
+
+.animate-marquee-der {
+  animation: marquee-der linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee-izq,
+  .animate-marquee-der {
+    animation: none;
+  }
+}
+
+/* Scrollbar discreta en las listas del panel */
+.scroll-fino::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.scroll-fino::-webkit-scrollbar-thumb {
+  background: var(--borde);
+  border-radius: 3px;
+}
