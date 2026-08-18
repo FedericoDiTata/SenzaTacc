@@ -10,32 +10,23 @@ export const metadata: Metadata = {
     "Una cafetería y un market 100% libres de gluten en Almagro. Sin cocina compartida, sin contaminación cruzada, sin asteriscos.",
 };
 
+/*
+ * Seis fotos en grilla uniforme.
+ *
+ * Antes eran cinco con anchos mezclados y la última fila quedaba a medias,
+ * dejando un hueco grande a la derecha. Seis entran justo tanto en 2 columnas
+ * (mobile) como en 3 (desktop).
+ *
+ * Todas van en 3/4 porque las originales son verticales de celular: recortarlas
+ * a formato apaisado tira la mitad de la foto y encima obliga a agrandarlas.
+ */
 const GALERIA = [
-  {
-    src: "/local/salon-gente.jpg",
-    alt: "El salón lleno en un mediodía",
-    clase: "col-span-2 aspect-[16/10]",
-  },
-  {
-    src: "/local/market-gondolas.jpg",
-    alt: "Las góndolas del market con el cartel MARKET",
-    clase: "aspect-[3/4]",
-  },
-  {
-    src: "/local/salon-mesas.jpg",
-    alt: "Las mesas contra el listonado de ladrillo",
-    clase: "aspect-[3/4]",
-  },
-  {
-    src: "/local/market-gente.jpg",
-    alt: "Clientes eligiendo productos en el market",
-    clase: "aspect-[3/4]",
-  },
-  {
-    src: "/local/pared-cuadros.jpg",
-    alt: "La pared de cuadros con el póster de Senza Tacc",
-    clase: "aspect-[3/4]",
-  },
+  { src: "/local/salon-gente.jpg", alt: "El salón lleno en un mediodía" },
+  { src: "/local/market-gondolas.jpg", alt: "Las góndolas del market con el cartel MARKET" },
+  { src: "/local/medialunas.jpg", alt: "Medialunas recién horneadas en el mostrador" },
+  { src: "/local/salon-mesas.jpg", alt: "Las mesas contra el listonado de madera" },
+  { src: "/local/market-gente.jpg", alt: "Clientes eligiendo productos en el market" },
+  { src: "/local/pared-cuadros.jpg", alt: "La pared de cuadros con el póster de Senza Tacc" },
 ];
 
 export default function LocalPage() {
@@ -80,17 +71,17 @@ export default function LocalPage() {
       {/* Galería */}
       <section className="border-b border-borde bg-crema-profundo px-5 py-20 sm:px-8 md:py-28">
         <div className="mx-auto max-w-6xl">
-          <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">
             {GALERIA.map((foto) => (
               <figure
                 key={foto.src}
-                className={`group relative overflow-hidden rounded-sm ${foto.clase}`}
+                className="group relative aspect-[3/4] overflow-hidden rounded-sm"
               >
                 <Image
                   src={foto.src}
                   alt={foto.alt}
                   fill
-                  sizes="(max-width: 640px) 50vw, 25vw"
+                  sizes="(max-width: 640px) 50vw, 33vw"
                   className="object-cover transition-transform duration-1000 group-hover:scale-105"
                 />
               </figure>
