@@ -45,7 +45,6 @@ const SLIDES = [
 ];
 
 const DURACION = 4200;
-const EASE_CINE = [0.43, 0.13, 0.23, 0.96] as const;
 
 export function Hero() {
   const [i, setI] = useState(0);
@@ -93,12 +92,11 @@ export function Hero() {
       <div className="absolute inset-0 bg-gradient-to-b from-tinta/70 via-tinta/45 to-tinta/65" />
 
       <div className="relative mx-auto max-w-3xl px-6 text-center text-crema">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease: EASE_CINE, delay: 0.2 }}
-          className="flex flex-col items-center"
-        >
+        {/* La entrada va por CSS y no por Framer Motion a propósito: dentro de
+            un motion.div con `initial: opacity 0`, el titular no se pinta hasta
+            que hidrata el JS. En una conexión lenta eso es medio segundo de
+            hero vacío. El CSS corre en el primer paint, sin depender de nada. */}
+        <div className="entrada-hero flex flex-col items-center">
           <h1 className="wordmark text-4xl leading-[1.15] sm:text-6xl">
             SENZA TACC
           </h1>
@@ -127,7 +125,7 @@ export function Hero() {
               Ver la carta
             </Link>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

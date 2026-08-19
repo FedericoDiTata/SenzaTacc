@@ -83,6 +83,34 @@ body {
   font-weight: 500;
 }
 
+/*
+  Entrada del bloque de texto del hero.
+
+  Va en CSS y no en Framer Motion para que el titular se pinte sin esperar a
+  que hidrate el JavaScript. Con `both` el estado inicial ya se aplica durante
+  el delay, así que no hay parpadeo.
+*/
+@keyframes entrada-hero {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.entrada-hero {
+  animation: entrada-hero 0.9s cubic-bezier(0.43, 0.13, 0.23, 0.96) 0.2s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .entrada-hero {
+    animation: none;
+  }
+}
+
 /* Hilo que recorre el indicador de scroll del hero. */
 @keyframes hilo-baja {
   0% {
