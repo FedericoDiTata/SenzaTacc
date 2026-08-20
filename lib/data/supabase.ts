@@ -112,11 +112,24 @@ function itemsParaSQL(items: Pedido["items"]) {
 
 /* ── Implementación ───────────────────────────────────────────────────────── */
 
+/*
+ * Se lee de la tabla `productos` y no de la vista `productos_disponibles`.
+ *
+ * La vista existe y calcula bien, pero medida contra el proyecto real tarda el
+ * doble que la tabla (~1000 ms contra ~460 ms para las 41 filas): al ser
+ * security_invoker, evalúa las políticas RLS fila por fila. Y encima
+ * pagábamos ese costo al pedo, porque `aProducto` descarta la columna
+ * `disponible` y el valor se calcula igual en TypeScript con
+ * `disponible(producto)` de lib/types.ts.
+ *
+ * La vista se deja en el esquema porque es cómoda para consultar a mano desde
+ * el SQL Editor, pero la app no la usa.
+ */
 export const fuenteSupabase: FuenteDatos = {
   async listarProductos() {
     const sb = await clienteServidor();
     const { data, error } = await sb
-      .from("productos_disponibles")
+      .from("productos")
       .select("*")
       .eq("activo", true)
       .order("orden");
@@ -127,7 +140,7 @@ export const fuenteSupabase: FuenteDatos = {
   async obtenerProducto(id) {
     const sb = await clienteServidor();
     const { data, error } = await sb
-      .from("productos_disponibles")
+      .from("productos")
       .select("*")
       .eq("id", id)
       .maybeSingle();
