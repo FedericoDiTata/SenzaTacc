@@ -110,3 +110,55 @@ ${bloques}
 
 writeFileSync(join(raiz, "supabase", "seed-pedidos.sql"), sqlPedidos, "utf8");
 console.log(`seed-pedidos.sql generado con ${PEDIDOS_DEMO.length} pedidos.`);
+
+/* ── Reset completo de la demo ──────────────────────────────────────────────
+   Un solo archivo para dejar todo como recién instalado, justo antes de
+   mostrarla. Resuelve dos cosas que pasan solas con el uso:
+
+     - Las reservas de los pedidos de demo expiran a las 24 h y el panel queda
+       vacío. Este script los vuelve a crear con el reloj en cero.
+     - Las pruebas dejan pedidos con nombres feos en el historial.            */
+
+const filasStock = PRODUCTOS_SEED.map(
+  (p) => `  (${q(p.id)}, ${p.stock}, ${p.stockMinimo}, ${p.precio})`,
+).join(",\n");
+
+const sqlReset = `-- ============================================================================
+-- Senza Tacc — reset de la demo
+-- GENERADO por scripts/generar-seed-sql.ts — no editar a mano.
+--
+-- Corré esto ANTES de mostrar la demo. Deja la base como recién instalada:
+-- borra los pedidos de prueba, restaura el stock y vuelve a crear los ${PEDIDOS_DEMO.length}
+-- pedidos pendientes con las 24 h de reserva completas.
+--
+-- Es seguro correrlo cuantas veces quieras.
+-- ============================================================================
+
+-- 1. Limpia pedidos y movimientos.
+delete from movimientos_stock;
+delete from pedidos;
+
+-- 2. Restaura stock, precio y umbrales a los valores de la demo.
+--    Las reservas vuelven a cero porque ya no hay pedidos pendientes.
+update productos p
+   set stock        = v.stock,
+       stock_minimo = v.stock_minimo,
+       precio       = v.precio,
+       reservado    = 0
+  from (values
+${filasStock}
+       ) as v(id, stock, stock_minimo, precio)
+ where p.id = v.id;
+
+-- 3. Vuelve a crear los pedidos de demo, con el reloj de la reserva en cero.
+${bloques}
+
+-- 4. Control: deberían quedar ${PEDIDOS_DEMO.length} pendientes y ${PRODUCTOS_SEED.length} productos.
+select
+  (select count(*) from pedidos where estado = 'pendiente') as pedidos_pendientes,
+  (select count(*) from productos)                          as productos,
+  (select coalesce(sum(reservado), 0) from productos)       as unidades_reservadas;
+`;
+
+writeFileSync(join(raiz, "supabase", "reset-demo.sql"), sqlReset, "utf8");
+console.log("reset-demo.sql generado.");

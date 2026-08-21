@@ -112,6 +112,7 @@ supabase/
   schema.sql              tablas, vista, funciones, RLS
   seed.sql                catálogo — GENERADO, no editar
   seed-pedidos.sql        pedidos de demo — GENERADO, no editar
+  reset-demo.sql          deja la base como recién instalada — GENERADO
 scripts/generar-seed-sql.ts
 ```
 
@@ -154,12 +155,14 @@ npm run dev
 3. SQL Editor → correr **`supabase/seed.sql`** (41 productos).
 4. SQL Editor → correr **`supabase/seed-pedidos.sql`** (3 pedidos pendientes).
    Opcional pero muy recomendable: **un panel vacío no vende**.
+   Más adelante, para volver a dejar todo como recién instalado, se usa
+   **`supabase/reset-demo.sql`** (ver § Resetear la demo).
 5. Authentication → Users → **Add user** con email y contraseña para el dueño.
    No hay registro público: el único usuario se crea a mano.
 6. Copiar Project URL y anon key a `.env.local`.
 
 Para cambiar el catálogo: editar `lib/seed.ts` y correr
-`node scripts/generar-seed-sql.ts`, que regenera los dos `.sql`.
+`node scripts/generar-seed-sql.ts`, que regenera los tres `.sql`.
 
 ### Autenticación
 
@@ -195,7 +198,6 @@ Todo esto son placeholders. Están marcados en el código.
 | **Carta de cafetería** | `lib/carta.ts` | **Contenido de muestra entero.** Aclararlo en la reunión |
 | ¿Envío o sólo retiro? | `lib/siteConfig.ts` | Hoy asume sólo retiro |
 | Historia del local | `app/(sitio)/local/page.tsx` | Texto escrito de oficio |
-| **Fotos del local en alta** | `public/local/` | Las actuales son de WhatsApp, 960 px. Ver § El problema de las fotos |
 | **Carta real** | `lib/carta.ts` | El cliente va a pasar un PDF. El **diseño** de `/carta` ya está hecho; falta el contenido |
 | Fotos de los platos | — | La carta está pensada para funcionar sin fotos por ítem, porque no las tenemos. Si llegan, entran en el destacado de cada sección |
 
@@ -273,27 +275,50 @@ de esa referencia hubiera peleado con el sello del que sale toda la identidad.
 Está pensada para **funcionar sin fotos por ítem**, porque no las tenemos. Si el
 cliente las manda, el lugar natural es el destacado de cada sección.
 
-### El problema de las fotos del local
+### Las fotos del local
 
-Las seis fotos de `public/local/` son **verticales de celular (~960×1280) y
-comprimidas por WhatsApp**. Eso trae dos problemas distintos:
+Las manda el cliente. **Pedirlas siempre por Drive, nunca por WhatsApp**, que
+recorta a 1280 px y recomprime: la primera tanda llegó a 960 px y se pixelaba en
+el hero.
 
-- **Encuadre** — en una franja apaisada el recorte por defecto cae en la parte
-  menos interesante. Por eso cada slide del hero tiene su `foco`
-  (`object-position`), y la foto de la carta usa `50% 72%`: centrada mostraba la
-  máquina de café en vez de las medialunas.
-- **Nitidez** — 960 px estirados a 1440+ son 1,5× de upscale, y eso **no se
-  arregla desde el código**. Está puesto `quality={90}` y el Ken Burns se
-  contuvo a 1,05×, pero el techo lo pone la fuente. Sólo se ven nítidas donde se
-  achican (galería de `/local`, sección "El lugar").
+El pipeline vive en el scratchpad, no en el repo (es de una sola vez). Dos cosas
+que conviene recordar si hay que rehacerlo:
 
-**La solución real es pedirle al cliente los originales del celular**, enviados
-por Drive o AirDrop y no por WhatsApp, que recorta a 1280 px y recomprime.
+- **Los HEIC del iPhone no los abre `sharp`.** libheif corta por límite de
+  seguridad: *"Number of references in iref box (45) exceeds the security limits
+  of 16"*, típico de fotos editadas en el celular. Se decodifican con
+  **`heic-convert`** (libheif en WASM) y recién después se redimensionan con
+  sharp. El decodificador nativo de Windows (WIC + PresentationCore) también
+  sirve, pero depende de que la máquina tenga instalada la extensión HEIF.
+- **El reparto es por resolución, y eso es lo que evita el pixelado.** Las de
+  alta (2000 px) van al hero y a la franja de la carta, que ocupan el ancho
+  completo. Las de 1024 px van a "el lugar" y a la galería, que las muestran a
+  un tercio del ancho. Nunca se agranda: si el original es más chico, se deja.
 
-Aplican además los estándares de
-`C:\Users\feded\.claude\projects\C--Users-feded\memory\feedback_design_principles.md`.
+Todas son verticales, así que en franjas apaisadas el recorte por defecto cae en
+el techo o en el piso. Cada slide del hero define su `object-position`; los
+cuatro se verificaron contra una página de prueba a 1440×774, que es el tamaño
+real del hero en desktop.
 
 ---
+
+### Resetear la demo
+
+**Correr `supabase/reset-demo.sql` antes de cada presentación.** No es opcional
+por dos motivos que aparecen solos con el uso:
+
+- **Las reservas expiran a las 24 h.** Los pedidos de demo se cargan con
+  `crear_pedido()`, que les pone 24 horas de reserva. Pasado ese plazo,
+  `expirar_pedidos()` los marca como expirados y **el panel queda vacío**, que
+  es exactamente lo que no querés que pase adelante del cliente.
+- **Las pruebas ensucian el historial.** Cualquier pedido de test queda listado
+  con su nombre a la vista.
+
+El script borra pedidos y movimientos, restaura stock y precios desde
+`lib/seed.ts`, y vuelve a crear los tres pedidos con el reloj en cero. Es
+idempotente y termina con un `select` de control. Está validado contra Postgres.
+
+Se regenera junto con los otros dos: `node scripts/generar-seed-sql.ts`.
 
 ## Verificación
 
@@ -311,3 +336,5 @@ Lo que hay que probar a mano antes de mostrar la demo:
 - [ ] Un pedido `pendiente` reserva sin tocar el stock real; cancelarlo lo libera.
 - [ ] `/panel` deslogueado redirige a `/login`.
 - [ ] El panel en pantalla de celular: el dueño lo va a usar desde el mostrador.
+- [ ] **Correr `reset-demo.sql` el mismo día**, o las reservas vencen y el panel
+      aparece vacío.
