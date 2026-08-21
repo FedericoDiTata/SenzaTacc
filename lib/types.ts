@@ -143,6 +143,20 @@ export function totalPedido(items: ItemPedido[]): number {
   return items.reduce((acc, i) => acc + i.precioUnitario * i.cantidad, 0);
 }
 
+/**
+ * Normaliza texto para buscar: minúsculas y sin diacríticos.
+ *
+ * El catálogo tiene "Schär", "Maní King", "Doña Rosa", "Bravísima"… y nadie
+ * tipea la diéresis ni siempre el acento. Sin esto, buscar "mani" o "schar"
+ * devuelve cero resultados y parece que el producto no existe.
+ */
+export function normalizarTexto(s: string): string {
+  return s
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+}
+
 export function formatARS(n: number): string {
   return new Intl.NumberFormat("es-AR", {
     style: "currency",

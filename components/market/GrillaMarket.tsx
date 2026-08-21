@@ -3,7 +3,13 @@
 import { useMemo, useState } from "react";
 import { TarjetaProducto } from "./TarjetaProducto";
 import { Lupa } from "@/components/ui/Iconos";
-import { CATEGORIAS, disponible, type CategoriaId, type Producto } from "@/lib/types";
+import {
+  CATEGORIAS,
+  disponible,
+  normalizarTexto,
+  type CategoriaId,
+  type Producto,
+} from "@/lib/types";
 
 type Filtro = CategoriaId | "todos";
 
@@ -13,15 +19,16 @@ export function GrillaMarket({ productos }: { productos: Producto[] }) {
   const [ocultarAgotados, setOcultarAgotados] = useState(false);
 
   const visibles = useMemo(() => {
-    const q = busqueda.trim().toLowerCase();
+    // Sin diacríticos: "mani" tiene que encontrar "Maní King".
+    const q = normalizarTexto(busqueda.trim());
     return productos.filter((p) => {
       if (filtro !== "todos" && p.categoria !== filtro) return false;
       if (ocultarAgotados && disponible(p) <= 0) return false;
       if (!q) return true;
       return (
-        p.nombre.toLowerCase().includes(q) ||
-        p.marca.toLowerCase().includes(q) ||
-        p.descripcion.toLowerCase().includes(q)
+        normalizarTexto(p.nombre).includes(q) ||
+        normalizarTexto(p.marca).includes(q) ||
+        normalizarTexto(p.descripcion).includes(q)
       );
     });
   }, [productos, filtro, busqueda, ocultarAgotados]);

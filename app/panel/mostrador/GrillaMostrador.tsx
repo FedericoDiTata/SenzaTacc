@@ -7,6 +7,7 @@ import {
   CATEGORIAS,
   disponible,
   estadoStock,
+  normalizarTexto,
   type CategoriaId,
   type Producto,
 } from "@/lib/types";
@@ -22,12 +23,13 @@ export function GrillaMostrador({ productos }: { productos: Producto[] }) {
   const [pendiente, iniciar] = useTransition();
 
   const visibles = useMemo(() => {
-    const q = busqueda.trim().toLowerCase();
+    // Sin diacríticos: "mani" tiene que encontrar "Maní King".
+    const q = normalizarTexto(busqueda.trim());
     return productos.filter((p) => {
       if (filtro !== "todos" && p.categoria !== filtro) return false;
       if (!q) return true;
       return (
-        p.nombre.toLowerCase().includes(q) || p.marca.toLowerCase().includes(q)
+        normalizarTexto(p.nombre).includes(q) || normalizarTexto(p.marca).includes(q)
       );
     });
   }, [productos, filtro, busqueda]);

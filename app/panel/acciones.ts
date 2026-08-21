@@ -6,7 +6,7 @@ import { requerirSesion } from "@/lib/auth";
 import { datos, type AccionPedido } from "@/lib/data";
 import { haySupabase } from "@/lib/supabase/config";
 import { clienteServidor } from "@/lib/supabase/servidor";
-import type { ItemPedido } from "@/lib/types";
+import { disponible, type ItemPedido } from "@/lib/types";
 
 export type Resultado = { ok: true } | { ok: false; error: string };
 
@@ -48,6 +48,24 @@ export async function venderEnMostrador(
 ): Promise<Resultado> {
   try {
     await requerirSesion();
+
+    // La grilla puede estar desactualizada (otra caja vendió lo último hace
+    // segundos). Sin este chequeo, aplicar_movimiento igual registraría el
+    // movimiento aunque el stock ya esté en cero —el clamp lo deja en 0— y el
+    // ledger mostraría una venta que nunca descontó nada.
+    const producto = await datos.obtenerProducto(productoId);
+    if (!producto) return { ok: false, error: "Producto inexistente" };
+    const libre = disponible(producto);
+    if (libre < cantidad) {
+      return {
+        ok: false,
+        error:
+          libre === 0
+            ? `No queda stock de ${producto.nombre} (puede estar reservado por un pedido web).`
+            : `De ${producto.nombre} quedan ${libre} sin reservar.`,
+      };
+    }
+
     await datos.venderEnMostrador(productoId, cantidad);
     revalidarTodo();
     return { ok: true };

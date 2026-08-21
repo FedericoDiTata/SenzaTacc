@@ -15,6 +15,9 @@ export function TarjetaPedido({ pedido }: { pedido: Pedido }) {
   const total = editando ? totalPedido(items) : pedido.total;
   const cambiado =
     JSON.stringify(items) !== JSON.stringify(pedido.items);
+  // Editar todo a cero no es "modificar": es cancelar. Sin este guard, guardar
+  // dejaría un pedido confirmado de $0 sin ítems en el historial.
+  const sinItems = items.every((i) => i.cantidad === 0);
 
   function accionar(accion: "confirmado" | "modificado" | "cancelado") {
     setError("");
@@ -137,12 +140,17 @@ export function TarjetaPedido({ pedido }: { pedido: Pedido }) {
           <>
             <button
               type="button"
-              disabled={pendiente || !cambiado}
+              disabled={pendiente || !cambiado || sinItems}
               onClick={() => accionar("modificado")}
               className="flex-1 rounded-full bg-ladrillo px-4 py-2.5 text-xs tracking-wide text-blanco transition-opacity hover:opacity-90 disabled:opacity-40"
             >
               {pendiente ? "Guardando…" : "Guardar cambios y confirmar"}
             </button>
+            {sinItems && (
+              <p className="w-full text-center text-[11px] text-tinta-tenue">
+                Quedó todo en cero — para anular el pedido usá Cancelar.
+              </p>
+            )}
             <button
               type="button"
               disabled={pendiente}
