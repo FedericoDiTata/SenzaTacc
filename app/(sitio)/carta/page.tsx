@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { Sello } from "@/components/marca/Logo";
 import { EspigaTachada } from "@/components/marca/EspigaTachada";
@@ -31,26 +30,26 @@ const PALETA: Record<ColorSeccion, { banda: string; texto: string }> = {
 };
 
 /**
- * Reparte las secciones en dos columnas equilibrando por tamaño.
+ * Reparte las secciones en dos columnas.
  *
- * El peso aproxima la altura: cada item es una fila, y la banda, la bajada y el
- * destacado suman unas tres filas más. El `+4` del corte reserva lugar para la
- * nota que cierra la primera columna.
+ * El peso aproxima la altura: cada item es una fila y la banda de título suma
+ * un par más. Se prueban todos los cortes posibles y gana el que deja las dos
+ * columnas más parejas, en vez de cortar en el primero que pasa la mitad.
  */
 function repartir(secciones: SeccionCarta[]): [SeccionCarta[], SeccionCarta[]] {
-  const peso = (s: SeccionCarta) => s.items.length + 3;
+  const peso = (s: SeccionCarta) => s.items.length + 2;
   const total = secciones.reduce((n, s) => n + peso(s), 0);
 
   let acumulado = 0;
-  let corte = secciones.length;
-  for (let i = 0; i < secciones.length; i++) {
+  let mejor = { corte: 1, diferencia: Infinity };
+
+  for (let i = 0; i < secciones.length - 1; i++) {
     acumulado += peso(secciones[i]);
-    if (acumulado + 4 >= total / 2) {
-      corte = i + 1;
-      break;
-    }
+    const diferencia = Math.abs(total - 2 * acumulado);
+    if (diferencia < mejor.diferencia) mejor = { corte: i + 1, diferencia };
   }
-  return [secciones.slice(0, corte), secciones.slice(corte)];
+
+  return [secciones.slice(0, mejor.corte), secciones.slice(mejor.corte)];
 }
 
 export default function CartaPage() {
@@ -76,30 +75,13 @@ export default function CartaPage() {
           </div>
 
           <p className="mx-auto mt-6 max-w-lg font-display text-lg leading-relaxed text-tinta-suave sm:text-xl">
-            Todo lo que sale de esta cocina es sin gluten, incluido el pan. No
-            hay versión apta: hay una sola versión.
+            Todo lo que sale de esta cocina es sin gluten, incluido el pan.
           </p>
         </div>
       </header>
 
-      {/* Foto vertical del iPhone en una franja apaisada: el recorte por
-          defecto (el centro) cae sobre la bandeja vacía, así que se corre hacia
-          abajo para que entren las tazas y las medialunas. */}
-      <div className="relative h-[30vh] min-h-[210px] overflow-hidden bg-tinta">
-        <Image
-          src="/local/desayuno.jpg"
-          alt="Dos capuchinos con arte en la leche, medialunas y jugo de naranja"
-          fill
-          priority
-          quality={90}
-          sizes="100vw"
-          className="object-cover"
-          style={{ objectPosition: "50% 58%" }}
-        />
-      </div>
-
       {/* ── La carta, en una sola hoja ──────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-crema px-5 py-16 sm:px-8 md:py-20">
+      <section className="relative overflow-hidden border-t border-borde bg-crema px-5 py-14 sm:px-8 md:py-18">
         <FondoDoodles />
 
         {/* Dos columnas en desktop: es lo que baja el scroll a la mitad y hace
@@ -115,19 +97,6 @@ export default function CartaPage() {
             {izquierda.map((seccion) => (
               <Seccion key={seccion.id} seccion={seccion} />
             ))}
-
-            {/* Cierra la columna corta y de paso dice algo que importa. */}
-            <aside className="mb-11 rounded-sm border border-dashed border-ladrillo/35 px-5 py-6 text-center">
-              <EspigaTachada className="mx-auto h-8 w-8 text-ladrillo" />
-              <p className="mt-3 font-display text-xl">Todo, sin excepción</p>
-              <p className="mt-2 text-xs leading-relaxed text-tinta-suave">
-                No hay harina de trigo en el local. Podés pedir cualquier cosa
-                de esta carta sin preguntar nada.
-              </p>
-              <p className="mt-3 border-t border-borde pt-3 text-[11px] text-tinta-tenue">
-                Consultanos por opciones veganas y sin lactosa.
-              </p>
-            </aside>
           </div>
 
           <div>
@@ -136,6 +105,10 @@ export default function CartaPage() {
             ))}
           </div>
         </div>
+
+        <p className="relative mx-auto mt-4 max-w-5xl text-center text-xs text-tinta-tenue">
+          Consultanos por opciones veganas y sin lactosa.
+        </p>
       </section>
 
       {/* ── Cierre ──────────────────────────────────────────────────────── */}
@@ -146,8 +119,8 @@ export default function CartaPage() {
             ¿Buscabas para llevar a casa?
           </h2>
           <p className="text-sm leading-relaxed text-tinta-suave">
-            La carta se disfruta en el salón. Si querés productos envasados —
-            pastas, galletitas, alfajores — eso está en el market y se pide
+            La carta se disfruta en el salón. Si querés productos envasados
+            (pastas, galletitas, alfajores), eso está en el market y se pide
             desde acá.
           </p>
           <Link
@@ -172,7 +145,7 @@ function Seccion({ seccion }: { seccion: SeccionCarta }) {
 
   return (
     // break-inside-avoid: sin esto las columnas CSS parten una sección al medio.
-    <section id={seccion.id} className="mb-11 break-inside-avoid">
+    <section id={seccion.id} className="mb-10 break-inside-avoid">
       <header
         className={`flex items-center gap-3 rounded-sm px-4 py-2.5 ${paleta.banda}`}
       >
@@ -182,31 +155,7 @@ function Seccion({ seccion }: { seccion: SeccionCarta }) {
         </h2>
       </header>
 
-      <p className="mt-2.5 px-1 text-xs text-tinta-suave">{seccion.bajada}</p>
-
-      {/* Destacado: mismo peso que el resto, pero con fondo y etiqueta. */}
-      <div className="mt-3 rounded-sm bg-crema-profundo px-4 py-3">
-        <p className={`eyebrow text-[10px] ${paleta.texto}`}>
-          {seccion.destacado.porque}
-        </p>
-        <div className="mt-1.5 flex items-baseline justify-between gap-3">
-          <h3 className="font-display text-lg leading-snug">
-            {seccion.destacado.nombre}
-          </h3>
-          <span
-            className={`shrink-0 font-display text-lg tabular-nums ${paleta.texto}`}
-          >
-            {formatARS(seccion.destacado.precio)}
-          </span>
-        </div>
-        {seccion.destacado.detalle && (
-          <p className="mt-1 text-[11px] leading-relaxed text-tinta-suave">
-            {seccion.destacado.detalle}
-          </p>
-        )}
-      </div>
-
-      <ul className="mt-1 px-1">
+      <ul className="mt-2 px-1">
         {seccion.items.map((item) => (
           <Fila key={item.nombre} item={item} texto={paleta.texto} />
         ))}

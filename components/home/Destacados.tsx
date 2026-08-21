@@ -12,13 +12,7 @@ export function Destacados({ productos }: { productos: Producto[] }) {
         <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
           <Encabezado
             etiqueta="Del market"
-            titulo={
-              <>
-                Lo que más
-                <br />
-                se lleva la gente.
-              </>
-            }
+            titulo="Nuestro Market"
           />
           <Link
             href="/market"

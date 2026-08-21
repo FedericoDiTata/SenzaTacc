@@ -16,7 +16,7 @@ export function Ubicacion() {
                 {SITE.barrio}.
               </>
             }
-            bajada="A pasos de la estación. Si venís a buscar un pedido, escribinos antes por WhatsApp así lo dejamos listo."
+            bajada="Si venís a buscar un pedido, escribinos antes por WhatsApp así lo dejamos listo."
           />
 
           <dl className="mt-10 space-y-3 border-t border-borde pt-8">

@@ -7,25 +7,26 @@ import { EspigaTachada } from "@/components/marca/EspigaTachada";
 export const metadata: Metadata = {
   title: "El local",
   description:
-    "Una cafetería y un market 100% libres de gluten en Almagro. Sin cocina compartida, sin contaminación cruzada, sin asteriscos.",
+    "Una cafetería y un market 100% libres de gluten en Almagro. Sin cocina compartida y sin contaminación cruzada.",
 };
 
 /*
- * Seis fotos en grilla uniforme.
+ * Seis fotos, con la primera de doble tamaño.
  *
- * Antes eran cinco con anchos mezclados y la última fila quedaba a medias,
- * dejando un hueco grande a la derecha. Seis entran justo tanto en 2 columnas
- * (mobile) como en 3 (desktop).
+ * En mobile van uniformes en dos columnas: seis entran justo en tres filas.
+ * En desktop la grilla pasa a 3×3 y la primera ocupa 2×2, con lo que las nueve
+ * celdas quedan exactas y la página abre con una foto grande en vez de un
+ * mosaico parejo.
  *
- * Todas van en 3/4 porque las originales son verticales de celular: recortarlas
- * a formato apaisado tira la mitad de la foto y encima obliga a agrandarlas.
+ * Todas en 3/4 porque las originales son verticales de celular: recortarlas a
+ * formato apaisado tira la mitad de la foto.
  */
 const GALERIA = [
+  { src: "/local/salon-amplio.jpg", alt: "El salón con las luces colgantes y el listonado de madera" },
   { src: "/local/market-pasillo.jpg", alt: "El pasillo del market bajo el cartel MARKET" },
-  { src: "/local/salon-mesas.jpg", alt: "Las mesas del salón bajo las lámparas colgantes" },
-  { src: "/local/market-barritas.jpg", alt: "La góndola de barritas y snacks" },
-  { src: "/local/pared-cuadros.jpg", alt: "La pared de cuadros con el póster de Senza Tacc" },
   { src: "/local/medialunas.jpg", alt: "Medialunas recién horneadas en el mostrador" },
+  { src: "/local/market-barritas.jpg", alt: "La góndola de barritas y snacks" },
+  { src: "/local/salon-mesas.jpg", alt: "Las mesas del salón bajo las lámparas colgantes" },
   { src: "/local/market-canasta.jpg", alt: "Una canasta con compras en el pasillo del market" },
 ];
 
@@ -35,59 +36,56 @@ export default function LocalPage() {
       <CabeceraPagina
         etiqueta="El local"
         titulo="Acá no hay harina de trigo."
-        bajada="Y eso lo cambia todo. No es una carta con opciones aptas: es un local entero donde podés pedir cualquier cosa sin preguntar nada."
+        bajada="Cafetería de un lado, market del otro. Todo lo que ves, sin TACC."
       />
 
-      {/* Relato */}
-      <section className="border-b border-borde bg-crema px-5 py-20 sm:px-8 md:py-28">
-        <div className="mx-auto grid max-w-5xl gap-14 md:grid-cols-[1fr_1.3fr] md:gap-20">
-          <div>
-            <EspigaTachada className="h-9 w-9 text-ladrillo" />
-            <h2 className="mt-6 font-display text-2xl leading-snug">
-              Dos cosas en un mismo lugar
-            </h2>
-          </div>
-
-          <div className="space-y-5 text-base leading-relaxed text-tinta-suave">
-            <p>
-              De un lado, la cafetería: café de especialidad, medialunas que
-              salen del horno a la mañana, tostados con pan propio y una vitrina
-              de pastelería que cambia todos los días.
-            </p>
-            <p>
-              Del otro, el market. Dos góndolas con más de cuarenta productos
-              envasados de las marcas que un celíaco conoce de memoria y que
-              normalmente hay que salir a buscar de a una por distintos
-              supermercados. Pastas, galletitas, alfajores, snacks, barritas.
-            </p>
-            <p className="text-tinta">
-              La idea es simple: que puedas desayunar tranquilo y llevarte la
-              semana resuelta en el mismo viaje.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Galería */}
-      <section className="border-b border-borde bg-crema-profundo px-5 py-20 sm:px-8 md:py-28">
+      {/* La galería va apenas debajo de la cabecera: es lo que la gente viene
+          a ver, y antes quedaba a dos pantallas de scroll. */}
+      <section className="border-b border-borde bg-crema px-5 py-12 sm:px-8 md:py-16">
         <div className="mx-auto max-w-6xl">
-          <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">
-            {GALERIA.map((foto) => (
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3 lg:grid-rows-3">
+            {GALERIA.map((foto, i) => (
               <figure
                 key={foto.src}
-                className="group relative aspect-[3/4] overflow-hidden rounded-sm"
+                className={`group relative overflow-hidden rounded-sm ${
+                  i === 0
+                    ? "aspect-[3/4] lg:col-span-2 lg:row-span-2 lg:aspect-auto"
+                    : "aspect-[3/4]"
+                }`}
               >
                 <Image
                   src={foto.src}
                   alt={foto.alt}
                   fill
+                  priority={i === 0}
                   quality={88}
-                  sizes="(max-width: 640px) 50vw, 33vw"
+                  style={i === 0 ? { objectPosition: "50% 55%" } : undefined}
+                  sizes={
+                    i === 0
+                      ? "(max-width: 1024px) 100vw, 66vw"
+                      : "(max-width: 640px) 50vw, 33vw"
+                  }
                   className="object-cover transition-transform duration-1000 group-hover:scale-105"
                 />
               </figure>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Un solo párrafo: antes eran tres y empujaban las fotos hacia abajo. */}
+      <section className="border-b border-borde bg-crema-profundo px-5 py-16 sm:px-8 md:py-20">
+        <div className="mx-auto max-w-2xl text-center">
+          <EspigaTachada className="mx-auto h-9 w-9 text-ladrillo" />
+          <h2 className="mt-6 font-display text-2xl leading-snug sm:text-3xl">
+            Dos cosas en un mismo lugar
+          </h2>
+          <p className="mt-4 text-base leading-relaxed text-tinta-suave">
+            De un lado, la cafetería: café de especialidad, medialunas que salen
+            del horno a la mañana y una vitrina que cambia todos los días. Del
+            otro, el market: más de cuarenta productos para llevarte la semana
+            resuelta en el mismo viaje.
+          </p>
         </div>
       </section>
 

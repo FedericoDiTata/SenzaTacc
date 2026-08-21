@@ -1,24 +1,33 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Encabezado } from "@/components/ui/Encabezado";
 import { EspigaTachada } from "@/components/marca/EspigaTachada";
 
-const PILARES = [
+/**
+ * La primera tarjeta es la que da el marco y las tres siguientes lo sostienen.
+ * Por eso abre la grilla y no hay encabezado de sección arriba: el mensaje ya
+ * está adentro de la tarjeta.
+ */
+const TARJETAS = [
+  {
+    titulo: "Entrás, elegís y te quedás tranquilo.",
+    texto:
+      "Un lugar donde todo está pensado para que puedas comer sin TACC con la tranquilidad que debería ser normal.",
+  },
   {
     titulo: "Cocina 100% libre de gluten",
     texto:
-      "No hay harina de trigo en ningún rincón del local: ni en la cocina, ni en el depósito, ni en la máquina de café. La contaminación cruzada, acá, directamente no existe.",
+      "Todo el local está pensado para evitar la contaminación cruzada: no hay harina de trigo en la cocina, el depósito ni la máquina de café.",
   },
   {
-    titulo: "Un market, no una góndola",
+    titulo: "Un market para encontrar de todo",
     texto:
-      "Más de cuarenta productos de las marcas que realmente conseguís: Schär, Doña Rosa, Maní King, Crudda, Mudra. Pastas, galletitas, alfajores, snacks y barritas.",
+      "Más de 40 productos sin TACC, de marcas que ya conocés y otras para descubrir: Schär, Doña Rosa, Maní King, Crudda, Mudra y más.",
   },
   {
-    titulo: "Café de especialidad",
+    titulo: "Café para disfrutar",
     texto:
-      "Porque comer sin gluten no debería significar resignar el café. Espresso, flat white y medialunas hechas acá, todos los días.",
+      "Porque comer sin TACC no significa resignar un buen café. Espresso, flat white y medialunas hechas acá, para disfrutar en el local o llevar.",
   },
 ];
 
@@ -26,25 +35,15 @@ export function Propuesta() {
   return (
     <section
       id="propuesta"
-      className="border-b border-borde bg-crema px-5 py-24 sm:px-8 md:py-32"
+      className="border-b border-borde bg-crema px-5 py-20 sm:px-8 md:py-28"
     >
       <div className="mx-auto max-w-6xl">
-        <Encabezado
-          etiqueta="Por qué existimos"
-          titulo={
-            <>
-              Entrás y podés
-              <br />
-              pedir cualquier cosa.
-            </>
-          }
-          bajada="Si sos celíaco sabés lo que es preguntar tres veces, leer etiquetas y desconfiar igual. Acá esa conversación no hace falta."
-        />
-
-        <div className="mt-16 grid gap-px overflow-hidden rounded-sm bg-borde md:grid-cols-3">
-          {PILARES.map((p, i) => (
+        {/* gap-px sobre el borde: las cuatro tarjetas se leen como un bloque
+            único dividido, no como cuatro cajas sueltas. */}
+        <div className="grid gap-px overflow-hidden rounded-sm bg-borde sm:grid-cols-2 lg:grid-cols-4">
+          {TARJETAS.map((t, i) => (
             <motion.article
-              key={p.titulo}
+              key={t.titulo}
               initial={{ opacity: 0, y: 28 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
@@ -52,16 +51,16 @@ export function Propuesta() {
                 type: "spring",
                 stiffness: 85,
                 damping: 18,
-                delay: i * 0.1,
+                delay: i * 0.08,
               }}
-              className="flex flex-col bg-crema p-8 md:p-10"
+              className="flex flex-col bg-crema p-8 md:p-9"
             >
-              <EspigaTachada className="h-9 w-9 text-ladrillo" />
+              <EspigaTachada className="h-8 w-8 text-ladrillo" />
               <h3 className="mt-6 font-display text-xl leading-snug">
-                {p.titulo}
+                {t.titulo}
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-tinta-suave">
-                {p.texto}
+                {t.texto}
               </p>
             </motion.article>
           ))}

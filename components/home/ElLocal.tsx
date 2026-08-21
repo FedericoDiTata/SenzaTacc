@@ -13,14 +13,8 @@ export function ElLocal() {
           <Encabezado
             claro
             etiqueta="El lugar"
-            titulo={
-              <>
-                Un café donde
-                <br />
-                bajás la guardia.
-              </>
-            }
-            bajada="Madera, luz cálida y mesas para quedarse. Del otro lado del salón, el market: dos góndolas llenas de cosas que en cualquier otro supermercado tendrías que ir a buscar de a una."
+            titulo="Todo en un mismo lugar"
+            bajada="Lugar cálido para tomar y comer algo rico. Al otro lado del salón, el market: 2 góndolas con productos sin TACC para llevar, elegir y descubrir."
           />
 
           <motion.div

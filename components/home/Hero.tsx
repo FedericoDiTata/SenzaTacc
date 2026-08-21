@@ -103,8 +103,6 @@ export function Hero() {
 
           <p className="mt-8 max-w-xl font-display text-xl leading-relaxed sm:text-2xl">
             Todo lo que hay acá es sin gluten.
-            <br className="hidden sm:block" /> Sin excepciones, sin asteriscos,
-            sin preguntar.
           </p>
 
           <div className="mt-10 flex flex-col gap-3 sm:flex-row">
