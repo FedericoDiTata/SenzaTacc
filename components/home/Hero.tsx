@@ -7,40 +7,37 @@ import { AnimatePresence, motion } from "framer-motion";
 import { SITE } from "@/lib/siteConfig";
 
 /*
- * Fotos del local, no de producto: el hero muestra el lugar, el market muestra
- * lo que se vende.
+ * Fotos del local, no de producto: el hero muestra el lugar, el market
+ * muestra lo que se vende.
  *
- * Las seis son verticales de celular (~960×1280) y comprimidas por WhatsApp.
- * En una franja apaisada eso trae dos problemas:
+ * Acá van sólo las de alta resolución (originales del iPhone, 2000 px de
+ * ancho ya procesadas). El hero ocupa el ancho completo, así que es el único
+ * lugar donde una foto chica se notaría; las de 1024 px van a la galería, que
+ * las muestra a un tercio del ancho.
  *
- *  1. Encuadre — el recorte por defecto (centro) cae en la parte menos
- *     interesante de cada foto. De ahí el `foco` de cada slide, que corre el
- *     object-position a donde realmente está el sujeto.
- *  2. Nitidez — 960 px de ancho estirados a 1440+ es un 1,5× de upscale y no
- *     hay forma de recuperarlo desde el código. Para que se vean nítidas hacen
- *     falta los originales del celular (WhatsApp recorta a 1280 px y
- *     recomprime). Ver AGENTS.md § Datos pendientes.
+ * El `foco` corre el object-position: son verticales y el recorte por defecto
+ * (el centro) suele caer en el techo o en el piso, no en el sujeto.
  */
 const SLIDES = [
   {
     src: "/local/salon-gente.jpg",
-    alt: "El salón de Senza Tacc con gente desayunando",
-    foco: "50% 58%",
+    alt: "El salón de Senza Tacc lleno de gente desayunando",
+    foco: "50% 55%",
   },
   {
-    src: "/local/market-gondolas.jpg",
-    alt: "Las góndolas del market sin TACC",
-    foco: "50% 42%",
+    src: "/local/desayuno.jpg",
+    alt: "Dos capuchinos con arte en la leche, medialunas y jugo de naranja",
+    foco: "50% 35%",
   },
   {
-    src: "/local/medialunas.jpg",
-    alt: "Medialunas recién horneadas en el mostrador",
-    foco: "50% 70%",
-  },
-  {
-    src: "/local/market-gente.jpg",
-    alt: "Clientes eligiendo productos en el market",
+    src: "/local/mostrador.jpg",
+    alt: "El mostrador con la vitrina de pastelería",
     foco: "50% 45%",
+  },
+  {
+    src: "/local/salon-amplio.jpg",
+    alt: "Vista general del salón con las luces colgantes",
+    foco: "50% 50%",
   },
 ];
 
@@ -66,8 +63,7 @@ export function Hero() {
           exit={{ opacity: 0 }}
           transition={{
             opacity: { duration: 1.3, ease: "easeInOut" },
-            // Ken Burns contenido: con fotos de 960 px cada punto de zoom se
-            // paga en nitidez.
+            // Ken Burns contenido: da vida sin que el recorte se vaya de foco.
             scale: { duration: DURACION / 1000 + 1.3, ease: "linear" },
           }}
           className="absolute inset-0"

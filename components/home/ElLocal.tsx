@@ -51,10 +51,12 @@ export function ElLocal() {
             className="relative col-span-2 aspect-[4/3] overflow-hidden rounded-sm"
           >
             <Image
-              src="/local/salon-mesas.jpg"
-              alt="Las mesas del salón con el listonado de ladrillo"
+              src="/local/salon-amplio.jpg"
+              alt="El salón con las luces colgantes y el listonado de madera"
               fill
+              quality={88}
               sizes="(max-width: 1024px) 100vw, 50vw"
+              style={{ objectPosition: "50% 55%" }}
               className="object-cover transition-transform duration-1000 hover:scale-105"
             />
           </motion.div>
@@ -75,7 +77,9 @@ export function ElLocal() {
               src="/local/pared-cuadros.jpg"
               alt="La pared de cuadros con el póster de Senza Tacc"
               fill
+              quality={88}
               sizes="25vw"
+              style={{ objectPosition: "50% 35%" }}
               className="object-cover transition-transform duration-1000 hover:scale-105"
             />
           </motion.div>
@@ -93,10 +97,12 @@ export function ElLocal() {
             className="relative aspect-square overflow-hidden rounded-sm"
           >
             <Image
-              src="/local/market-gondolas.jpg"
-              alt="Las góndolas del market"
+              src="/local/market-pasillo.jpg"
+              alt="El pasillo del market bajo el cartel MARKET"
               fill
+              quality={88}
               sizes="25vw"
+              style={{ objectPosition: "50% 40%" }}
               className="object-cover transition-transform duration-1000 hover:scale-105"
             />
           </motion.div>

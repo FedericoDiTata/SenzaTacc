@@ -21,12 +21,12 @@ export const metadata: Metadata = {
  * a formato apaisado tira la mitad de la foto y encima obliga a agrandarlas.
  */
 const GALERIA = [
-  { src: "/local/salon-gente.jpg", alt: "El salón lleno en un mediodía" },
-  { src: "/local/market-gondolas.jpg", alt: "Las góndolas del market con el cartel MARKET" },
-  { src: "/local/medialunas.jpg", alt: "Medialunas recién horneadas en el mostrador" },
-  { src: "/local/salon-mesas.jpg", alt: "Las mesas contra el listonado de madera" },
-  { src: "/local/market-gente.jpg", alt: "Clientes eligiendo productos en el market" },
+  { src: "/local/market-pasillo.jpg", alt: "El pasillo del market bajo el cartel MARKET" },
+  { src: "/local/salon-mesas.jpg", alt: "Las mesas del salón bajo las lámparas colgantes" },
+  { src: "/local/market-barritas.jpg", alt: "La góndola de barritas y snacks" },
   { src: "/local/pared-cuadros.jpg", alt: "La pared de cuadros con el póster de Senza Tacc" },
+  { src: "/local/medialunas.jpg", alt: "Medialunas recién horneadas en el mostrador" },
+  { src: "/local/market-canasta.jpg", alt: "Una canasta con compras en el pasillo del market" },
 ];
 
 export default function LocalPage() {
@@ -81,6 +81,7 @@ export default function LocalPage() {
                   src={foto.src}
                   alt={foto.alt}
                   fill
+                  quality={88}
                   sizes="(max-width: 640px) 50vw, 33vw"
                   className="object-cover transition-transform duration-1000 group-hover:scale-105"
                 />

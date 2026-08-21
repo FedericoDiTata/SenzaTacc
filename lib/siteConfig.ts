@@ -9,10 +9,12 @@ export const SITE = {
   bajada: "Café & Market",
   claim: "100% libre de gluten",
 
-  /** PENDIENTE — sólo dígitos, sin +, para wa.me */
-  whatsapp: "5491100000000",
-  /** PENDIENTE */
-  whatsappVisible: "+54 9 11 0000-0000",
+  /**
+   * Sólo dígitos y en formato internacional, que es lo que exige wa.me:
+   * 54 (país) + 9 (móvil) + 11 (área, sin el 0) + el número (sin el 15).
+   */
+  whatsapp: "5491139115949",
+  whatsappVisible: "+54 9 11 3911-5949",
 
   instagram: "senzatacc_",
   instagramUrl: "https://www.instagram.com/senzatacc_/",

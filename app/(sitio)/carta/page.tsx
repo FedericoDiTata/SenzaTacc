@@ -82,19 +82,19 @@ export default function CartaPage() {
         </div>
       </header>
 
-      {/* La foto es vertical (960×1280, de celular). En una franja apaisada el
-          encuadre por defecto cae sobre la máquina de café y las medialunas
-          quedan fuera: por eso el object-position corrido hacia abajo. */}
+      {/* Foto vertical del iPhone en una franja apaisada: el recorte por
+          defecto (el centro) cae sobre la bandeja vacía, así que se corre hacia
+          abajo para que entren las tazas y las medialunas. */}
       <div className="relative h-[30vh] min-h-[210px] overflow-hidden bg-tinta">
         <Image
-          src="/local/medialunas.jpg"
-          alt="Medialunas recién horneadas sobre el mostrador"
+          src="/local/desayuno.jpg"
+          alt="Dos capuchinos con arte en la leche, medialunas y jugo de naranja"
           fill
           priority
           quality={90}
           sizes="100vw"
           className="object-cover"
-          style={{ objectPosition: "50% 72%" }}
+          style={{ objectPosition: "50% 58%" }}
         />
       </div>
 
