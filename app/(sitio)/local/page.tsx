@@ -35,8 +35,7 @@ export default function LocalPage() {
     <>
       <CabeceraPagina
         etiqueta="El local"
-        titulo="Acá no hay harina de trigo."
-        bajada="Cafetería de un lado, market del otro. Todo lo que ves, sin TACC."
+        titulo="Cafetería de un lado, market del otro. Todo lo que ves es sin TACC."
       />
 
       {/* La galería va apenas debajo de la cabecera: es lo que la gente viene

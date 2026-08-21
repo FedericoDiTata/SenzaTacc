@@ -53,7 +53,11 @@ function repartir(secciones: SeccionCarta[]): [SeccionCarta[], SeccionCarta[]] {
 }
 
 export default function CartaPage() {
-  const [izquierda, derecha] = repartir(CARTA);
+  // La última sección va a lo ancho, abajo de las dos columnas: ninguna
+  // combinación deja las columnas parejas, así que repartiéndola quedaba un
+  // hueco largo al costado.
+  const ultima = CARTA[CARTA.length - 1];
+  const [izquierda, derecha] = repartir(CARTA.slice(0, -1));
 
   return (
     <>
@@ -73,10 +77,6 @@ export default function CartaPage() {
             <EspigaTachada className="h-6 w-6 shrink-0 text-ladrillo" />
             <span className="h-px flex-1 bg-borde" />
           </div>
-
-          <p className="mx-auto mt-6 max-w-lg font-display text-lg leading-relaxed text-tinta-suave sm:text-xl">
-            Todo lo que sale de esta cocina es sin gluten, incluido el pan.
-          </p>
         </div>
       </header>
 
@@ -106,9 +106,9 @@ export default function CartaPage() {
           </div>
         </div>
 
-        <p className="relative mx-auto mt-4 max-w-5xl text-center text-xs text-tinta-tenue">
-          Consultanos por opciones veganas y sin lactosa.
-        </p>
+        <div className="relative mx-auto max-w-5xl">
+          <Seccion seccion={ultima} ancha />
+        </div>
       </section>
 
       {/* ── Cierre ──────────────────────────────────────────────────────── */}
@@ -140,7 +140,13 @@ export default function CartaPage() {
 
 /* ── Una sección de la carta ───────────────────────────────────────────── */
 
-function Seccion({ seccion }: { seccion: SeccionCarta }) {
+function Seccion({
+  seccion,
+  ancha = false,
+}: {
+  seccion: SeccionCarta;
+  ancha?: boolean;
+}) {
   const paleta = PALETA[seccion.color];
 
   return (
@@ -155,7 +161,15 @@ function Seccion({ seccion }: { seccion: SeccionCarta }) {
         </h2>
       </header>
 
-      <ul className="mt-2 px-1">
+      {/* En la variante ancha los items van en dos columnas. El nth-last-child
+          saca la línea a los dos últimos, que son el final de cada columna. */}
+      <ul
+        className={`mt-2 px-1 ${
+          ancha
+            ? "lg:grid lg:grid-cols-2 lg:gap-x-14 lg:[&>li:nth-last-child(-n+2)]:border-0"
+            : ""
+        }`}
+      >
         {seccion.items.map((item) => (
           <Fila key={item.nombre} item={item} texto={paleta.texto} />
         ))}
