@@ -104,7 +104,7 @@ export function TarjetaProducto({
               : agregado
                 ? "Agregado ✓"
                 : sinMargen
-                  ? "Sin más"
+                  ? "No hay más"
                   : "Agregar"}
           </button>
         </div>

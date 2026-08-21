@@ -8,7 +8,7 @@ const PILARES = [
   {
     titulo: "Cocina 100% libre de gluten",
     texto:
-      "No hay harina de trigo en el local. Ni en la cocina, ni en el depósito, ni en la máquina de café. No existe la contaminación cruzada porque no hay con qué.",
+      "No hay harina de trigo en ningún rincón del local: ni en la cocina, ni en el depósito, ni en la máquina de café. La contaminación cruzada, acá, directamente no existe.",
   },
   {
     titulo: "Un market, no una góndola",

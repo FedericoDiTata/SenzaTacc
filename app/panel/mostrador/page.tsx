@@ -19,10 +19,10 @@ export default async function MostradorPage() {
       <div className="mt-5 rounded-sm border border-borde bg-crema-profundo px-4 py-3">
         <p className="text-xs leading-relaxed text-tinta-suave">
           <strong className="font-medium text-tinta">
-            Esta pantalla es provisoria.
+            Esta pantalla cubre las ventas del mostrador
           </strong>{" "}
-          El día que conectemos el sistema del mostrador, estas bajas van a
-          entrar solas y no vas a tener que tocar nada acá.
+          hasta que se conecte el sistema de facturación del local: ese día,
+          estas bajas van a registrarse solas y no va a hacer falta tocar nada.
         </p>
       </div>
 

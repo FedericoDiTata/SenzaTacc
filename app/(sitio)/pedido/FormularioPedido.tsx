@@ -69,7 +69,7 @@ export function FormularioPedido() {
         className="mx-auto max-w-lg px-5 pb-24 pt-36 text-center sm:px-8"
       >
         <Sello className="mx-auto h-20 w-20" />
-        <h2 className="mt-8 font-display text-3xl">Tu pedido quedó guardado</h2>
+        <h2 className="mt-8 font-display text-3xl">¡Listo! Tu pedido ya está reservado</h2>
 
         <p className="mt-6 text-sm leading-relaxed text-tinta-suave">
           Anotá este código, es el que vamos a usar para encontrar tu pedido:
@@ -92,7 +92,7 @@ export function FormularioPedido() {
 
         <p className="mt-10 border-t border-borde pt-8 text-xs leading-relaxed text-tinta-tenue">
           Te reservamos las unidades por {HORAS_EXPIRACION_PEDIDO} horas. Si no
-          llegamos a confirmarte, vuelven al stock solas.
+          llegamos a confirmarte, la reserva se libera automáticamente.
         </p>
 
         <Link
@@ -180,8 +180,8 @@ export function FormularioPedido() {
                 WhatsApp con el pedido ya escrito y un código.
               </li>
               <li>
-                <strong className="font-medium text-tinta">2.</strong> Nos llega
-                al panel del local y te confirmamos por ahí mismo.
+                <strong className="font-medium text-tinta">2.</strong> Lo
+                recibimos en el local y te confirmamos por el mismo chat.
               </li>
               <li>
                 <strong className="font-medium text-tinta">3.</strong> Lo pasás a

@@ -88,7 +88,7 @@ export async function confirmarPedido(
     return {
       ok: false,
       error: msg.includes("stock")
-        ? "Alguien se adelantó y se llevó las últimas unidades. Revisá el carrito."
+        ? "Esas unidades se acaban de agotar. Revisá el carrito para seguir."
         : "No pudimos registrar el pedido. Probá de nuevo en un momento.",
     };
   }

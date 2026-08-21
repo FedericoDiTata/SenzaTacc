@@ -57,7 +57,7 @@ export default async function PedidosPage() {
             No hay pedidos esperando respuesta.
           </p>
           <p className="text-xs text-tinta-tenue">
-            Los nuevos aparecen acá solos.
+            Los pedidos nuevos aparecen automáticamente.
           </p>
         </div>
       ) : (

@@ -148,7 +148,7 @@ export function TarjetaPedido({ pedido }: { pedido: Pedido }) {
             </button>
             {sinItems && (
               <p className="w-full text-center text-[11px] text-tinta-tenue">
-                Quedó todo en cero — para anular el pedido usá Cancelar.
+                Quedó todo en cero: para anular el pedido, usá Cancelar.
               </p>
             )}
             <button
