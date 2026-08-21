@@ -84,7 +84,7 @@ const bloques = PEDIDOS_DEMO.map((d) => {
   ${q(d.telefono)},
   ${q(JSON.stringify(items))}::jsonb,
   ${q(d.nota)},
-  24
+  168
 );
 update pedidos
    set creado_en = now() - interval '${d.hace} minutes'
@@ -129,7 +129,7 @@ const sqlReset = `-- ===========================================================
 --
 -- Corré esto ANTES de mostrar la demo. Deja la base como recién instalada:
 -- borra los pedidos de prueba, restaura el stock y vuelve a crear los ${PEDIDOS_DEMO.length}
--- pedidos pendientes con las 24 h de reserva completas.
+-- pedidos pendientes con 7 días de reserva (la demo se mira sin reunión).
 --
 -- Es seguro correrlo cuantas veces quieras.
 -- ============================================================================

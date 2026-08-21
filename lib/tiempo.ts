@@ -23,7 +23,10 @@ export function tiempoRestante(iso: string): string {
   if (min < 60) return `${min} min`;
 
   const horas = Math.floor(min / 60);
-  return `${horas} h`;
+  if (horas < 48) return `${horas} h`;
+
+  const dias = Math.floor(horas / 24);
+  return `${dias} días`;
 }
 
 export function fechaHora(iso: string): string {
