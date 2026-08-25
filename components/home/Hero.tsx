@@ -107,16 +107,16 @@ export function Hero() {
 
           <div className="mt-10 flex flex-col gap-3 sm:flex-row">
             <Link
-              href="/market"
+              href="/carta"
               className="rounded-full bg-crema px-8 py-3.5 text-sm tracking-wide text-tinta transition-colors hover:bg-blanco"
             >
-              Pedí del market
+              Ver la carta
             </Link>
             <Link
-              href="/carta"
+              href="/market"
               className="rounded-full border border-crema/50 px-8 py-3.5 text-sm tracking-wide transition-colors hover:border-crema hover:bg-crema/10"
             >
-              Ver la carta
+              Pedí del market
             </Link>
           </div>
         </div>
